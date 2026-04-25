@@ -19,11 +19,14 @@ the_alpha_collection/
 ├── index.html               ← Main game board (home screen)
 ├── css/
 │   └── style.css            ← Shared board styles
+├── sw.js                  ← Service worker (PWA offline support)
+├── manifest.json           ← PWA manifest
 └── games/
     └── alphabet/
         ├── index.html       ← Alphabet Quest game page
         ├── style.css        ← Alphabet Quest styles
-        └── game.js          ← Alphabet Quest game logic
+        ├── game.js          ← Alphabet Quest game logic
+        └── i18n.js          ← Translations & text-to-speech
 ```
 
 ---
@@ -31,6 +34,8 @@ the_alpha_collection/
 ## How to Run
 
 The application is pure HTML/CSS/JavaScript with **no build step and no dependencies**.
+
+### Running Locally
 
 1. Clone the repository:
    ```bash
@@ -45,13 +50,36 @@ The application is pure HTML/CSS/JavaScript with **no build step and no dependen
    # then open http://localhost:8080
    ```
 
+### PWA (Install as App)
+
+The app works as a PWA (Progressive Web App):
+- Opens in **standalone mode** (no browser chrome) when installed
+- Works **offline** after first visit
+- Add to home screen on mobile:
+  - **iOS**: Share button → "Add to Home Screen"
+  - **Android**: Chrome menu → "Install App" or "Add to Home Screen"
+
+2. Open `index.html` in any modern browser, **or** serve it with a simple local server:
+   ```bash
+   # Python 3
+   python -m http.server 8080
+   # then open http://localhost:8080
+   ```
+
 ---
 
 ## Games
 
 ### 1 — 🔤 Alphabet Quest *(playable)*
 
-**Goal:** Click all 26 letters of the alphabet in correct order (A → Z) from a scrambled board.
+**Goal:** Click all letters of the alphabet in correct order (A → Z) from a scrambled board.
+
+**Features:**
+- 🗣️ **Text-to-Speech** — Letters are spoken aloud when clicked (in the selected language)
+- 🌍 **Multilingual** — Play in English, Swedish, Spanish, or Farsi
+  - Use the language switcher (top-right) to change language
+  - Language preference is saved to your browser
+- ↔️ **RTL Support** — Full right-to-left layout for Farsi
 
 #### How to play
 1. The game opens with an **intro modal** that shows:
@@ -60,13 +88,13 @@ The application is pure HTML/CSS/JavaScript with **no build step and no dependen
    - A text field where you can enter your name.
    - A **▶ Play** button (or press **Enter**) to start.
 2. Once you press Play the modal disappears and you see the **game board**:
-   - 26 letter tiles are laid out in a random scrambled order.
+   - Letter tiles are laid out in a random scrambled order.
    - A **progress strip** at the top highlights the next letter you need to find (pulsing yellow indicator).
    - A **scoreboard** shows your current score, incorrect-click count, and letters remaining.
 3. Click the letters **in alphabetical order**:
-   - ✅ **Correct letter** → tile turns green and fades, score increases by **+10 points**.
+   - ✅ **Correct letter** → tile turns green and fades, score increases by **+10 points**, letter is spoken.
    - ❌ **Wrong letter** → tile flashes red, incorrect counter increases by 1 (no point penalty).
-4. After clicking all 26 letters in order a **win screen** pops up showing your final score and error count, with options to **Play Again** or return to the **Game Board**.
+4. After clicking all letters in order a **win screen** pops up showing your final score and error count, with options to **Play Again** or return to the **Game Board**.
 
 #### Scoring
 
@@ -74,6 +102,15 @@ The application is pure HTML/CSS/JavaScript with **no build step and no dependen
 |---|---|
 | Correct letter in the right position | +10 |
 | Incorrect click | 0 (error counted separately) |
+
+#### Letters by Language
+
+| Language | Count |
+|---|---|
+| English | 26 (A–Z) |
+| Swedish | 29 (A–Ö) |
+| Spanish | 27 (A–Z + Ñ) |
+| Farsi | 32 (الف–ی) |
 
 ---
 
