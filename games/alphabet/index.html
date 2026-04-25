@@ -15,10 +15,16 @@
 </head>
 <body>
 
-  <!-- ════════════════════════════════════════════
-       INTRO MODAL
-       Shown when the page first loads.
-  ═══════════════════════════════════════════════ -->
+  <div class="lang-switcher">
+    <button class="language-btn" aria-label="Change language">🌐</button>
+    <div class="language-dropdown">
+      <button class="lang-option lang-en" data-lang="en">English</button>
+      <button class="lang-option lang-sv" data-lang="sv">Svenska</button>
+      <button class="lang-option lang-es" data-lang="es">Español</button>
+      <button class="lang-option lang-fa" data-lang="fa">فارسی</button>
+    </div>
+  </div>
+
   <div id="intro-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal-card">
       <h2 id="modal-title">🔤 Alphabet Quest</h2>
@@ -30,10 +36,8 @@
         <strong>10 points</strong>. Mis-clicks are counted — so stay sharp!
       </p>
 
-      <!-- Static alphabet reference -->
       <div class="alpha-display" id="modal-alpha-display" aria-label="The alphabet in order"></div>
 
-      <!-- Name input -->
       <div class="name-field">
         <label for="player-name">Your name</label>
         <input
@@ -42,17 +46,12 @@
           placeholder="Enter your name…"
           maxlength="30"
           autocomplete="off"
-          autofocus
         />
       </div>
 
       <button class="play-btn" id="play-btn">▶ Play</button>
     </div>
   </div>
-
-  <!-- ════════════════════════════════════════════
-       GAME LAYOUT
-  ═══════════════════════════════════════════════ -->
 
   <a class="back-link" href="../../index.html" aria-label="Back to game board">
     ← Back to Board
@@ -62,7 +61,6 @@
     <h1>🔤 Alphabet Quest</h1>
   </header>
 
-  <!-- Scoreboard -->
   <div class="scoreboard" role="region" aria-label="Score">
     <div class="score-item">
       <span class="label">Score</span>
@@ -78,20 +76,15 @@
     </div>
   </div>
 
-  <!-- Progress track -->
   <div class="progress-track" role="region" aria-label="Progress">
     <p>Progress</p>
     <div class="alphabet-strip" id="alpha-strip" aria-hidden="true"></div>
   </div>
 
-  <!-- Letter tile grid -->
   <main>
     <div class="letter-grid" id="letter-grid" role="group" aria-label="Scrambled letters"></div>
   </main>
 
-  <!-- ════════════════════════════════════════════
-       WIN BANNER
-  ═══════════════════════════════════════════════ -->
   <div id="win-banner" role="dialog" aria-modal="true" aria-labelledby="win-title">
     <div class="win-card">
       <h2 id="win-title">🎉 You did it!</h2>
@@ -111,27 +104,8 @@
     </div>
   </div>
 
+  <script src="i18n.js"></script>
   <script src="game.js"></script>
 
-  <!-- Update "Letters Left" counter whenever a tile's class changes or the grid is rebuilt -->
-  <script>
-    const leftEl = document.getElementById('left-value');
-    function updateLeftCount() {
-      leftEl.textContent = 26 - document.querySelectorAll('.letter-tile.correct').length;
-    }
-    const observer = new MutationObserver(updateLeftCount);
-    observer.observe(document.getElementById('letter-grid'), {
-      subtree: true,
-      childList: true,
-      attributes: true,
-      attributeFilter: ['class']
-    });
-  </script>
-
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js');
-    }
-  </script>
 </body>
 </html>

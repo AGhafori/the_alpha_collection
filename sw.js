@@ -6,6 +6,7 @@ const ASSETS = [
   '/games/alphabet/index.html',
   '/games/alphabet/style.css',
   '/games/alphabet/game.js',
+  '/games/alphabet/i18n.js',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
   '/manifest.json'

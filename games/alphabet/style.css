@@ -448,3 +448,125 @@ body {
 
 .play-btn:hover { background: var(--accent-hover); }
 .play-btn:active { transform: scale(0.97); }
+
+/* ── Language Switcher ── */
+body > .lang-switcher,
+body > div.lang-switcher {
+  position: fixed !important;
+  top: 1rem !important;
+  right: 1rem !important;
+  left: auto !important;
+  z-index: 1000;
+  font-family: var(--font);
+}
+
+.language-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--card-bg);
+  border: 2px solid var(--letter-border);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.language-btn:active {
+  transform: scale(0.95);
+}
+
+.language-dropdown {
+  position: absolute;
+  top: 52px;
+  right: 0;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+  min-width: 140px;
+}
+
+[dir="rtl"] .language-dropdown {
+  right: auto;
+  left: 0;
+}
+
+.language-dropdown.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.lang-option {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: none;
+  text-align: left;
+  font-size: 1rem;
+  font-family: var(--font);
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+[dir="rtl"] .lang-option {
+  text-align: right;
+}
+
+.lang-option:hover {
+  background: rgba(90, 138, 92, 0.1);
+}
+
+.lang-option:first-child {
+  border-top: none;
+}
+
+.lang-option::after {
+  content: ' ✓';
+  opacity: 0;
+}
+
+.lang-option.selected::after {
+  opacity: 1;
+}
+
+/* ── RTL Support ── */
+[dir="rtl"] .back-link {
+  align-self: flex-end;
+  margin-left: 1.5rem;
+  margin-right: auto;
+}
+
+[dir="rtl"] .back-link::before {
+  content: '→';
+}
+
+[dir="rtl"] .back-link span {
+  display: none;
+}
+
+[dir="rtl"] .modal-card {
+  text-align: right;
+}
+
+[dir="rtl"] .alpha-display {
+  direction: rtl;
+}
+
+[dir="rtl"] .name-field {
+  text-align: right;
+}
+
+[dir="rtl"] .win-card {
+  text-align: center;
+}
