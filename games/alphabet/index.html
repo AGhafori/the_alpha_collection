@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alphabet Quest – The Alpha Collection</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════
+       INTRO MODAL
+       Shown when the page first loads.
+  ═══════════════════════════════════════════════ -->
+  <div id="intro-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <h2 id="modal-title">🔤 Alphabet Quest</h2>
+
+      <p class="description">
+        Think you know your ABCs? The 26 letters of the alphabet will be
+        scrambled on the board. Your mission: click them <strong>in order from
+        A to Z</strong> as fast as you can. Every correct letter earns
+        <strong>10 points</strong>. Mis-clicks are counted — so stay sharp!
+      </p>
+
+      <!-- Static alphabet reference -->
+      <div class="alpha-display" id="modal-alpha-display" aria-label="The alphabet in order"></div>
+
+      <!-- Name input -->
+      <div class="name-field">
+        <label for="player-name">Your name</label>
+        <input
+          type="text"
+          id="player-name"
+          placeholder="Enter your name…"
+          maxlength="30"
+          autocomplete="off"
+          autofocus
+        />
+      </div>
+
+      <button class="play-btn" id="play-btn">▶ Play</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       GAME LAYOUT
+  ═══════════════════════════════════════════════ -->
+
+  <a class="back-link" href="../../index.html" aria-label="Back to game board">
+    ← Back to Board
+  </a>
+
+  <header class="game-header">
+    <h1>🔤 Alphabet Quest</h1>
+  </header>
+
+  <!-- Scoreboard -->
+  <div class="scoreboard" role="region" aria-label="Score">
+    <div class="score-item">
+      <span class="label">Score</span>
+      <span class="value" id="score-value">0</span>
+    </div>
+    <div class="score-item">
+      <span class="label">Incorrect</span>
+      <span class="value" id="errors-value">0</span>
+    </div>
+    <div class="score-item">
+      <span class="label">Letters Left</span>
+      <span class="value" id="left-value">26</span>
+    </div>
+  </div>
+
+  <!-- Progress track -->
+  <div class="progress-track" role="region" aria-label="Progress">
+    <p>Progress</p>
+    <div class="alphabet-strip" id="alpha-strip" aria-hidden="true"></div>
+  </div>
+
+  <!-- Letter tile grid -->
+  <main>
+    <div class="letter-grid" id="letter-grid" role="group" aria-label="Scrambled letters"></div>
+  </main>
+
+  <!-- ════════════════════════════════════════════
+       WIN BANNER
+  ═══════════════════════════════════════════════ -->
+  <div id="win-banner" role="dialog" aria-modal="true" aria-labelledby="win-title">
+    <div class="win-card">
+      <h2 id="win-title">🎉 You did it!</h2>
+      <p class="player-name-display" id="win-name"></p>
+      <div class="final-stats">
+        <div class="stat">
+          <span class="num green" id="win-score">0</span>
+          <span class="lbl">Score</span>
+        </div>
+        <div class="stat">
+          <span class="num red" id="win-errors">0</span>
+          <span class="lbl">Incorrect</span>
+        </div>
+      </div>
+      <button id="play-again-btn">🔄 Play Again</button>
+      <button id="back-home-btn">🏠 Back to Board</button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+
+  <!-- Update "Letters Left" counter whenever a tile's class changes or the grid is rebuilt -->
+  <script>
+    const leftEl = document.getElementById('left-value');
+    function updateLeftCount() {
+      leftEl.textContent = 26 - document.querySelectorAll('.letter-tile.correct').length;
+    }
+    const observer = new MutationObserver(updateLeftCount);
+    observer.observe(document.getElementById('letter-grid'), {
+      subtree: true,
+      childList: true,
+      attributes: true,
+      attributeFilter: ['class']
+    });
+  </script>
+</body>
+</html>
