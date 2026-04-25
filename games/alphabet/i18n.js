@@ -15,7 +15,8 @@ const TRANSLATIONS = {
     playAgain: '🔄 Play Again',
     backHome: '🏠 Back to Board',
     language: 'Language',
-    alphabet: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+    alphabet: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
+    speechLang: 'en-US'
   },
   sv: {
     title: 'Alfabet Quest',
@@ -33,7 +34,8 @@ const TRANSLATIONS = {
     playAgain: '🔄 Spela Igen',
     backHome: '🏠 Tillbaka till Brädet',
     language: 'Språk',
-    alphabet: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','Å','Ä','Ö']
+    alphabet: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','Å','Ä','Ö'],
+    speechLang: 'sv-SE'
   },
   es: {
     title: 'Búsqueda del Alfabeto',
@@ -51,7 +53,8 @@ const TRANSLATIONS = {
     playAgain: '🔄 Jugar de Nuevo',
     backHome: '🏠 Volver al Tablero',
     language: 'Idioma',
-    alphabet: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+    alphabet: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
+    speechLang: 'es-ES'
   },
   fa: {
     title: 'کوئیز الفبا',
@@ -69,7 +72,8 @@ const TRANSLATIONS = {
     playAgain: '🔄 دوباره بازی کن',
     backHome: '🏠 صفحه اصلی',
     language: 'زبان',
-    alphabet: ['آ','ا','ب','پ','ت','ث','ج','چ','ح','خ','د','ذ','ر','ز','ژ','س','ش','ص','ض','ط','ظ','ع','غ','ف','ق','ک','گ','ل','م','ن','و','ه','ی']
+    alphabet: ['آ','ا','ب','پ','ت','ث','ج','چ','ح','خ','د','ذ','ر','ز','ژ','س','ش','ص','ض','ط','ظ','ع','غ','ف','ق','ک','گ','ل','م','ن','و','ه','ی'],
+    speechLang: 'fa-IR'
   }
 };
 
@@ -93,3 +97,67 @@ function getAlphabet() {
 function isRTL() {
   return currentLang === 'fa';
 }
+
+let loadedVoices = [];
+let voicesAttempted = false;
+
+function speakLetter(letter) {
+  if (!('speechSynthesis' in window)) return;
+  
+  speechSynthesis.cancel();
+
+  const utterance = new SpeechSynthesisUtterance(letter);
+  const targetLang = t('speechLang');
+  utterance.lang = targetLang;
+  utterance.rate = 0.85;
+  utterance.pitch = 1;
+  utterance.volume = 1;
+
+  const langCode = targetLang.split('-')[0];
+  
+  if (loadedVoices.length > 0) {
+    let voice = loadedVoices.find(v => 
+      (v.lang.startsWith(langCode) || v.lang === targetLang) && 
+      v.name.includes('Google')
+    );
+    
+    if (!voice) {
+      voice = loadedVoices.find(v => 
+        v.lang.startsWith(langCode) || v.lang === targetLang
+      );
+    }
+    
+    if (!voice && langCode === 'fa') {
+      voice = loadedVoices.find(v => v.lang.startsWith('ar'));
+    }
+    
+    if (voice) {
+      utterance.voice = voice;
+    }
+  }
+
+  speechSynthesis.speak(utterance);
+}
+
+function loadVoices() {
+  const voices = speechSynthesis.getVoices();
+  if (voices.length > 0 && loadedVoices.length === 0) {
+    loadedVoices = voices;
+  }
+}
+
+function initSpeech() {
+  if (!('speechSynthesis' in window)) return;
+  
+  loadVoices();
+  
+  if (!voicesAttempted) {
+    voicesAttempted = true;
+    setTimeout(loadVoices, 100);
+    setTimeout(loadVoices, 500);
+    setTimeout(loadVoices, 1000);
+    setTimeout(loadVoices, 2000);
+  }
+}
+
+initSpeech();
