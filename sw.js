@@ -1,4 +1,4 @@
-const CACHE_NAME = 'alpha-collection-v1';
+const CACHE_NAME = 'alpha-collection-v2';
 const ASSETS = [
   '/',
   '/index.html',

@@ -62,16 +62,14 @@ function updateUIText() {
   
   document.getElementById('win-title').textContent = t('youDidIt');
   document.getElementById('play-again-btn').textContent = t('playAgain');
-  document.getElementById('back-home-btn').textContent = t('backHome');
-  
-  document.querySelector('.language-btn').textContent = LANGUAGES.find(l => l.code === currentLang)?.flag || '🌐';
-  
+document.getElementById('back-home-btn').textContent = t('backHome');
+   
   document.querySelectorAll('.lang-option').forEach(btn => {
     btn.classList.toggle('selected', btn.dataset.lang === currentLang);
   });
-  
+   
   document.body.dir = isRTL() ? 'rtl' : 'ltr';
-  
+   
   buildAlphaStrip();
 }
 
@@ -80,15 +78,18 @@ function setupLanguageSwitcher() {
   const langBtn = document.querySelector('.language-btn');
   const dropdown = document.querySelector('.language-dropdown');
   
-  langBtn.addEventListener('click', (e) => {
+langBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     dropdown.classList.toggle('open');
   });
-  
+
   document.querySelectorAll('.lang-option').forEach(btn => {
     btn.addEventListener('click', () => {
       currentLang = btn.dataset.lang;
       localStorage.setItem('alpha-lang', currentLang);
+      const short = btn.dataset.short || currentLang.toUpperCase();
+      const flag = btn.dataset.flag || '🌐';
+      langBtn.innerHTML = `${flag} ${short}`;
       dropdown.classList.remove('open');
       updateUIText();
       buildLetterGrid();
@@ -102,10 +103,21 @@ function setupLanguageSwitcher() {
     dropdown.classList.remove('open');
   });
   
+  function getLangDisplay(code) {
+    const langs = { en: { flag: '🇬🇧', short: 'EN' }, sv: { flag: '🇸🇪', short: 'SV' }, es: { flag: '🇪🇸', short: 'ES' }, fa: { flag: '🇮🇷', short: 'FA' } };
+    return langs[code] || { flag: '🌐', short: code.toUpperCase() };
+  }
+  
+  function updateLangBtn() {
+    const display = getLangDisplay(currentLang);
+    langBtn.innerHTML = `${display.flag} ${display.short}`;
+  }
+  
   const saved = localStorage.getItem('alpha-lang');
   if (saved && TRANSLATIONS[saved]) {
     currentLang = saved;
   }
+  updateLangBtn();
 }
 
 /* ─── Build the alphabet strip (progress track) ── */
