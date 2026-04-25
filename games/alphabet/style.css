@@ -450,7 +450,7 @@ body {
 .play-btn:active { transform: scale(0.97); }
 
 /* ── Language Switcher ── */
-body > .lang-switcher,
+.lang-switcher,
 body > div.lang-switcher {
   position: fixed !important;
   top: 1rem !important;
@@ -461,17 +461,21 @@ body > div.lang-switcher {
 }
 
 .language-btn {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
+  width: auto;
+  min-width: 52px;
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 8px;
   background: var(--card-bg);
   border: 2px solid var(--letter-border);
-  font-size: 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  gap: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -481,17 +485,18 @@ body > div.lang-switcher {
 
 .language-dropdown {
   position: absolute;
-  top: 52px;
+  top: 44px;
   right: 0;
   background: var(--card-bg);
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  border-radius: 10px;
+  border: 1px solid var(--letter-border);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
   overflow: hidden;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-10px);
-  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
-  min-width: 140px;
+  transform: translateY(-8px);
+  transition: opacity 0.15s, transform 0.15s, visibility 0.15s;
+  min-width: 120px;
 }
 
 [dir="rtl"] .language-dropdown {
@@ -506,38 +511,36 @@ body > div.lang-switcher {
 }
 
 .lang-option {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.6rem 0.9rem;
   border: none;
-  background: none;
+  background: #fff;
   text-align: left;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-family: var(--font);
-  color: var(--text-dark);
+  color: #333;
   cursor: pointer;
   transition: background 0.15s;
 }
 
+.lang-option:hover {
+  background: #e8f5e9;
+}
+
+.lang-option .flag { font-size: 1.2rem; }
+.lang-option .short { font-weight: 700; font-size: 0.85rem; color: #666; }
+
 [dir="rtl"] .lang-option {
+  justify-content: flex-end;
   text-align: right;
 }
 
-.lang-option:hover {
-  background: rgba(90, 138, 92, 0.1);
-}
-
-.lang-option:first-child {
-  border-top: none;
-}
-
-.lang-option::after {
-  content: ' ✓';
-  opacity: 0;
-}
-
-.lang-option.selected::after {
-  opacity: 1;
+.lang-option.selected {
+  background: #c8e6c9;
 }
 
 /* ── RTL Support ── */
