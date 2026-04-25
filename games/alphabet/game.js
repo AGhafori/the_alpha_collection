@@ -92,6 +92,9 @@ function setupLanguageSwitcher() {
       dropdown.classList.remove('open');
       updateUIText();
       buildLetterGrid();
+      if (window.speechSynthesis) {
+        window.speechSynthesis.getVoices();
+      }
     });
   });
   
@@ -162,6 +165,8 @@ function buildLetterGrid() {
 function handleTileClick(letter, btn) {
   if (btn.disabled) return;
   const ALPHABET = getAlphabet();
+
+  speakLetter(letter);
 
   if (letter === ALPHABET[nextIndex]) {
     score += 10;
