@@ -1,0 +1,195 @@
+/* =============================================
+   The Alpha Collection – Main Board Styles
+   ============================================= */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-green:       #a8c89a;   /* lime-washed green */
+  --card-bg:        #f5f0e8;   /* warm off-white */
+  --card-shadow:    rgba(0, 0, 0, 0.18);
+  --text-dark:      #2c3e2d;
+  --text-mid:       #4a5e4b;
+  --accent:         #5a8a5c;
+  --accent-hover:   #3e6b40;
+  --border-radius:  16px;
+  --font-display:   'Segoe UI', system-ui, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg-green);
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.25) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(0,0,0,0.06) 0%, transparent 50%);
+  font-family: var(--font-display);
+  color: var(--text-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── Header ── */
+header {
+  text-align: center;
+  padding: 3rem 1rem 1.5rem;
+}
+
+header h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text-dark);
+  text-shadow: 0 2px 4px rgba(255,255,255,0.4);
+}
+
+header p {
+  margin-top: 0.5rem;
+  font-size: 1.1rem;
+  color: var(--text-mid);
+}
+
+/* ── Game Board Grid ── */
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 900px;
+  width: 100%;
+}
+
+@media (max-width: 580px) {
+  .game-board {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    gap: 1.25rem;
+  }
+}
+
+/* ── Game Card ── */
+.game-card {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: 0 6px 24px var(--card-shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.game-card:hover,
+.game-card:focus-visible {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 14px 36px rgba(0,0,0,0.22);
+  outline: none;
+}
+
+.game-card.coming-soon {
+  opacity: 0.62;
+  cursor: not-allowed;
+}
+
+.game-card.coming-soon:hover {
+  transform: none;
+  box-shadow: 0 6px 24px var(--card-shadow);
+}
+
+/* Card image area */
+.card-preview {
+  width: 100%;
+  height: 180px;
+  background: linear-gradient(135deg, #c8e6c9 0%, #81c784 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-preview .preview-label {
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.8);
+}
+
+/* Coming-soon overlay */
+.coming-soon .card-preview::after {
+  content: 'COMING SOON';
+  position: absolute;
+  inset: 0;
+  background: rgba(180,200,180,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--text-dark);
+}
+
+/* Card body */
+.card-body {
+  padding: 1.25rem 1.5rem 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.card-body h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.card-body p {
+  font-size: 0.92rem;
+  color: var(--text-mid);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.card-body .play-btn {
+  align-self: flex-start;
+  margin-top: 0.75rem;
+  padding: 0.55rem 1.4rem;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.card-body .play-btn:hover {
+  background: var(--accent-hover);
+}
+
+.coming-soon .play-btn {
+  background: #999;
+  cursor: not-allowed;
+}
+
+/* ── Footer ── */
+footer {
+  padding: 2rem 1rem;
+  color: var(--text-mid);
+  font-size: 0.85rem;
+  text-align: center;
+}
