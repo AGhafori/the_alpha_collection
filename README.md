@@ -45,6 +45,90 @@ The application is pure HTML/CSS/JavaScript with **no build step and no dependen
    # then open http://localhost:8080
    ```
 
+### Run with Docker
+
+Build the image locally:
+
+```bash
+docker build -t alpha-collection .
+```
+
+Run the container and publish it on port `8080`:
+
+```bash
+docker run -d \
+   --name alpha-collection \
+   -p 8080:80 \
+   --restart unless-stopped \
+   alpha-collection
+```
+
+If your laptop already has a fixed IP address and you want Docker to bind only to that interface, publish the port with the host IP explicitly:
+
+```bash
+docker run -d \
+   --name alpha-collection \
+   -p YOUR_LAPTOP_IP:8080:80 \
+   --restart unless-stopped \
+   alpha-collection
+```
+
+Example:
+
+```bash
+docker run -d \
+   --name alpha-collection \
+   -p 192.168.1.50:8080:80 \
+   --restart unless-stopped \
+   alpha-collection
+```
+
+Then open:
+
+- `http://localhost:8080` on the laptop itself
+- `http://YOUR_LAPTOP_IP:8080` from another device on the same network
+
+### Run with Docker Compose
+
+You can also use the included compose file:
+
+```bash
+HOST_IP=192.168.1.50 HOST_PORT=8080 docker compose up -d --build
+```
+
+If you do not set `HOST_IP`, Docker will bind on all host interfaces.
+
+### Publish the image to GitHub
+
+This repository includes a GitHub Actions workflow that builds and pushes the Docker image to GitHub Container Registry:
+
+```text
+ghcr.io/aghafori/the_alpha_collection
+```
+
+What it does:
+
+- Push to any branch: publishes branch and SHA tags.
+- Push a version tag like `v1.0.0`: publishes the matching version tag.
+- Push to the default branch: also publishes `latest`.
+- Manual run from GitHub Actions: supported through `workflow_dispatch`.
+
+To trigger it:
+
+```bash
+git add .
+git commit -m "Add Docker deployment setup"
+git push origin YOUR_BRANCH_NAME
+```
+
+After the workflow runs, you can pull the image with:
+
+```bash
+docker pull ghcr.io/aghafori/the_alpha_collection:latest
+```
+
+If the repository is private, make sure the package visibility and pull permissions in GitHub match how you want to use the image.
+
 ---
 
 ## Games
