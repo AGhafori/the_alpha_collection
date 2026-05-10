@@ -1,0 +1,8 @@
+services:
+  alpha-collection:
+    build:
+      context: .
+    container_name: alpha-collection
+    ports:
+      - "${HOST_IP:-0.0.0.0}:${HOST_PORT:-8080}:80"
+    restart: unless-stopped

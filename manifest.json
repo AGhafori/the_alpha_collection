@@ -2,7 +2,7 @@
   "name": "The Alpha Collection",
   "short_name": "Alpha Collection",
   "description": "A compendium of fun mini-games to learn and grow.",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#f0fdf4",
   "theme_color": "#166534",
