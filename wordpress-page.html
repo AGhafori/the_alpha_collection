@@ -1,0 +1,313 @@
+<style>
+	.alpha-wp-page {
+		--alpha-ink: #193126;
+		--alpha-muted: #4a5e4b;
+		--alpha-surface: #f6efe5;
+		--alpha-surface-strong: #fffaf3;
+		--alpha-accent: #3f7c49;
+		--alpha-accent-dark: #2f5f38;
+		--alpha-board: #a8c89a;
+		--alpha-border: rgba(25, 49, 38, 0.14);
+		--alpha-shadow: 0 24px 48px rgba(25, 49, 38, 0.14);
+		color: var(--alpha-ink);
+		font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+		margin: 0 auto;
+		max-width: 1180px;
+		padding: 24px;
+	}
+
+	.alpha-wp-page * {
+		box-sizing: border-box;
+	}
+
+	.alpha-wp-hero {
+		background:
+			radial-gradient(circle at top left, rgba(255, 255, 255, 0.5), transparent 42%),
+			linear-gradient(135deg, #d7ead2 0%, #b5d2a8 56%, #9bbb8c 100%);
+		border: 1px solid var(--alpha-border);
+		border-radius: 28px;
+		box-shadow: var(--alpha-shadow);
+		overflow: hidden;
+		padding: clamp(24px, 4vw, 48px);
+	}
+
+	.alpha-wp-layout {
+		align-items: center;
+		display: grid;
+		gap: 28px;
+		grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+	}
+
+	.alpha-wp-copy h1 {
+		color: var(--alpha-ink);
+		font-size: clamp(2.25rem, 4vw, 4rem);
+		line-height: 0.95;
+		margin: 0 0 16px;
+	}
+
+	.alpha-wp-copy p {
+		color: var(--alpha-muted);
+		font-size: 1.05rem;
+		line-height: 1.7;
+		margin: 0 0 18px;
+		max-width: 58ch;
+	}
+
+	.alpha-wp-badges {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		list-style: none;
+		margin: 0 0 24px;
+		padding: 0;
+	}
+
+	.alpha-wp-badges li {
+		background: rgba(255, 250, 243, 0.82);
+		border: 1px solid rgba(25, 49, 38, 0.1);
+		border-radius: 999px;
+		color: var(--alpha-ink);
+		font-size: 0.92rem;
+		font-weight: 700;
+		padding: 10px 14px;
+	}
+
+	.alpha-wp-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+	}
+
+	.alpha-wp-button {
+		background: var(--alpha-accent);
+		border: 0;
+		border-radius: 999px;
+		color: #fff;
+		display: inline-flex;
+		font-size: 0.98rem;
+		font-weight: 700;
+		gap: 10px;
+		padding: 14px 20px;
+		text-decoration: none;
+		transition: background-color 0.18s ease, transform 0.18s ease;
+	}
+
+	.alpha-wp-button:hover,
+	.alpha-wp-button:focus {
+		background: var(--alpha-accent-dark);
+		transform: translateY(-1px);
+	}
+
+	.alpha-wp-button.secondary {
+		background: rgba(255, 250, 243, 0.86);
+		box-shadow: inset 0 0 0 1px rgba(25, 49, 38, 0.1);
+		color: var(--alpha-ink);
+	}
+
+	.alpha-wp-preview {
+		background: linear-gradient(180deg, rgba(255, 250, 243, 0.96), rgba(242, 236, 226, 0.92));
+		border: 1px solid rgba(25, 49, 38, 0.12);
+		border-radius: 24px;
+		min-height: 100%;
+		padding: 22px;
+	}
+
+	.alpha-wp-preview-card {
+		background: var(--alpha-surface-strong);
+		border-radius: 20px;
+		box-shadow: 0 18px 30px rgba(25, 49, 38, 0.08);
+		overflow: hidden;
+	}
+
+	.alpha-wp-preview-top {
+		align-items: center;
+		background: linear-gradient(135deg, #c9e6c9 0%, #82c785 100%);
+		display: flex;
+		font-size: clamp(3rem, 5vw, 4.5rem);
+		justify-content: center;
+		min-height: 180px;
+		position: relative;
+	}
+
+	.alpha-wp-preview-top span {
+		background: rgba(255, 255, 255, 0.26);
+		border-radius: 999px;
+		bottom: 16px;
+		color: rgba(25, 49, 38, 0.78);
+		font-size: 0.78rem;
+		font-weight: 800;
+		letter-spacing: 0.08em;
+		padding: 8px 12px;
+		position: absolute;
+		right: 16px;
+		text-transform: uppercase;
+	}
+
+	.alpha-wp-preview-body {
+		padding: 20px;
+	}
+
+	.alpha-wp-preview-body h2 {
+		font-size: 1.35rem;
+		margin: 0 0 10px;
+	}
+
+	.alpha-wp-preview-body p {
+		color: var(--alpha-muted);
+		line-height: 1.6;
+		margin: 0;
+	}
+
+	.alpha-wp-embed {
+		margin-top: 28px;
+	}
+
+	.alpha-wp-embed-header {
+		align-items: end;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 14px;
+		justify-content: space-between;
+		margin-bottom: 14px;
+	}
+
+	.alpha-wp-embed-header h2 {
+		font-size: clamp(1.5rem, 2vw, 2rem);
+		margin: 0;
+	}
+
+	.alpha-wp-embed-header p {
+		color: var(--alpha-muted);
+		line-height: 1.6;
+		margin: 0;
+		max-width: 60ch;
+	}
+
+	.alpha-wp-frame-shell {
+		background: var(--alpha-surface);
+		border: 1px solid var(--alpha-border);
+		border-radius: 28px;
+		box-shadow: var(--alpha-shadow);
+		overflow: hidden;
+		padding: 18px;
+	}
+
+	.alpha-wp-frame {
+		aspect-ratio: 16 / 10;
+		background: #ffffff;
+		border: 0;
+		border-radius: 18px;
+		display: block;
+		min-height: 720px;
+		width: 100%;
+	}
+
+	.alpha-wp-note {
+		color: var(--alpha-muted);
+		font-size: 0.94rem;
+		line-height: 1.6;
+		margin: 14px 6px 0;
+	}
+
+	@media (max-width: 960px) {
+		.alpha-wp-layout {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.alpha-wp-page {
+			padding: 16px;
+		}
+
+		.alpha-wp-hero,
+		.alpha-wp-frame-shell {
+			border-radius: 22px;
+			padding: 16px;
+		}
+
+		.alpha-wp-frame {
+			aspect-ratio: auto;
+			min-height: 82vh;
+		}
+	}
+</style>
+
+<!--
+	Replace /the-alpha-collection/index.html below if you host the game at another path or domain.
+	This markup is intended for a WordPress Custom HTML block or a page builder HTML module.
+-->
+
+<section class="alpha-wp-page">
+	<div class="alpha-wp-hero">
+		<div class="alpha-wp-layout">
+			<div class="alpha-wp-copy">
+				<h1>The Alpha Collection</h1>
+				<p>
+					A playful learning corner for children and families. Visitors can jump straight into the collection,
+					start Alphabet Quest, and keep playing without leaving your WordPress page.
+				</p>
+				<ul class="alpha-wp-badges" aria-label="Game features">
+					<li>Alphabet Quest included</li>
+					<li>English, Swedish, Spanish, and Farsi</li>
+					<li>Mobile and tablet friendly</li>
+					<li>No plugin required</li>
+				</ul>
+				<div class="alpha-wp-actions">
+					<a class="alpha-wp-button" href="/the-alpha-collection/index.html" target="_blank" rel="noopener noreferrer">
+						Open full game board
+					</a>
+					<a class="alpha-wp-button secondary" href="/the-alpha-collection/games/alphabet/index.html" target="_blank" rel="noopener noreferrer">
+						Open Alphabet Quest only
+					</a>
+				</div>
+			</div>
+
+			<div class="alpha-wp-preview" aria-hidden="true">
+				<div class="alpha-wp-preview-card">
+					<div class="alpha-wp-preview-top">
+						🔤
+						<span>Now Playing</span>
+					</div>
+					<div class="alpha-wp-preview-body">
+						<h2>Alphabet Quest</h2>
+						<p>
+							Players rebuild the alphabet in order, hear each letter spoken aloud, and track score,
+							mistakes, and progress in real time.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="alpha-wp-embed">
+		<div class="alpha-wp-embed-header">
+			<div>
+				<h2>Play on this page</h2>
+				<p>
+					The collection is embedded below with an iframe. If your WordPress site and the game are on different
+					domains, make sure the game host allows iframe embedding.
+				</p>
+			</div>
+			<a class="alpha-wp-button secondary" href="/the-alpha-collection/index.html" target="_blank" rel="noopener noreferrer">
+				Launch in a new tab
+			</a>
+		</div>
+
+		<div class="alpha-wp-frame-shell">
+			<iframe
+				class="alpha-wp-frame"
+				src="/the-alpha-collection/index.html"
+				title="The Alpha Collection game board"
+				loading="lazy"
+				allow="fullscreen"
+			></iframe>
+		</div>
+
+		<p class="alpha-wp-note">
+			Hosting note: upload this repository to a public web path such as /the-alpha-collection/ on the same domain,
+			then paste this file into your WordPress page. If you deploy the game somewhere else, update each link and the iframe src to the final URL.
+		</p>
+	</div>
+</section>

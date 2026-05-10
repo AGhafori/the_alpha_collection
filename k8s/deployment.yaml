@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alpha-collection
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alpha-collection
+  template:
+    metadata:
+      labels:
+        app: alpha-collection
+    spec:
+      containers:
+        - name: alpha-collection
+          image: ghcr.io/aghafori/the_alpha_collection:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 3
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 20

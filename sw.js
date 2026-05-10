@@ -1,15 +1,15 @@
-const CACHE_NAME = 'alpha-collection-v2';
+const CACHE_NAME = 'alpha-collection-v3';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/css/style.css',
-  '/games/alphabet/index.html',
-  '/games/alphabet/style.css',
-  '/games/alphabet/game.js',
-  '/games/alphabet/i18n.js',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
-  '/manifest.json'
+  './',
+  './index.html',
+  './css/style.css',
+  './games/alphabet/index.html',
+  './games/alphabet/style.css',
+  './games/alphabet/game.js',
+  './games/alphabet/i18n.js',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
+  './manifest.json'
 ];
 
 self.addEventListener('install', (event) => {
