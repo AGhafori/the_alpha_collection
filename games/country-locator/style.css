@@ -192,6 +192,14 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+.map-country-background {
+  fill: rgba(219, 231, 214, 0.82);
+  stroke: rgba(93, 124, 126, 0.42);
+  stroke-width: 0.85;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+
 .map-country {
   fill: rgba(246, 236, 217, 0.95);
   stroke: rgba(69, 98, 125, 0.92);

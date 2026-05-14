@@ -138,6 +138,14 @@ function buildMap() {
   svg.setAttribute('viewBox', `0 0 ${mapData.width} ${mapData.height}`);
   const fragment = document.createDocumentFragment();
 
+  (mapData.backgroundCountries ?? []).forEach((country) => {
+    const path = document.createElementNS(svgNS, 'path');
+    path.setAttribute('d', country.path);
+    path.setAttribute('class', 'map-country-background');
+    path.setAttribute('aria-hidden', 'true');
+    fragment.appendChild(path);
+  });
+
   mapData.countries.forEach((country) => {
     const path = document.createElementNS(svgNS, 'path');
     path.setAttribute('d', country.path);
