@@ -7,6 +7,9 @@ const ASSETS = [
   './games/alphabet/style.css',
   './games/alphabet/game.js',
   './games/alphabet/i18n.js',
+  './games/country-locator/index.html',
+  './games/country-locator/style.css',
+  './games/country-locator/game.js',
   './icons/icon-192.png',
   './icons/icon-512.png',
   './manifest.json'
