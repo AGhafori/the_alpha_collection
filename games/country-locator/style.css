@@ -193,8 +193,8 @@ body {
 }
 
 .map-country-background {
-  fill: rgba(219, 231, 214, 0.82);
-  stroke: rgba(93, 124, 126, 0.42);
+  fill: rgba(224, 228, 232, 0.9);
+  stroke: rgba(103, 116, 128, 0.38);
   stroke-width: 0.85;
   vector-effect: non-scaling-stroke;
   pointer-events: none;
