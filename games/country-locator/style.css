@@ -5,20 +5,24 @@
 }
 
 :root {
-  --bg-blue:      #b3cde3;
-  --modal-bg:     #f5f0e8;
-  --text-dark:    #1a3a5c;
-  --text-mid:     #3a5a7c;
-  --accent:       #2b6cb0;
-  --accent-hover: #1a4f8a;
-  --correct:      #43a047;
-  --incorrect:    #e53935;
-  --ocean:        #a8d4e6;
-  --land-fill:    #e8e0d0;
-  --land-stroke:  #555;
-  --found-fill:   #81c784;
-  --shadow:       rgba(0,0,0,0.18);
-  --font:         'Segoe UI', system-ui, sans-serif;
+  --bg-blue: #adc9dd;
+  --bg-deep: #dcebf3;
+  --modal-bg: #f7f1e8;
+  --text-dark: #163452;
+  --text-mid: #506c84;
+  --accent: #2b6cb0;
+  --accent-hover: #174a7f;
+  --correct: #2f9a52;
+  --incorrect: #d64545;
+  --ocean-top: #b9e0f0;
+  --ocean-bottom: #7ebdd4;
+  --land-fill: #f6ecd9;
+  --land-fill-hover: #ffe6a3;
+  --land-stroke: #45627d;
+  --found-fill: #7ac17e;
+  --wrong-fill: #efab8f;
+  --shadow: rgba(15, 40, 72, 0.18);
+  --font: 'Segoe UI', system-ui, sans-serif;
 }
 
 body {
@@ -26,8 +30,9 @@ body {
   min-height: 100vh;
   background-color: var(--bg-blue);
   background-image:
-    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.25) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(0,0,0,0.06) 0%, transparent 50%);
+    radial-gradient(circle at 18% 18%, rgba(255,255,255,0.36) 0%, transparent 46%),
+    radial-gradient(circle at 85% 82%, rgba(16,52,82,0.08) 0%, transparent 34%),
+    linear-gradient(180deg, var(--bg-deep), var(--bg-blue));
   font-family: var(--font);
   color: var(--text-dark);
   display: flex;
@@ -53,12 +58,16 @@ body {
   padding: 0.5rem;
   -webkit-tap-highlight-color: transparent;
 }
-.back-link:hover { opacity: 1; }
+
+.back-link:hover {
+  opacity: 1;
+}
 
 .game-header {
   text-align: center;
   padding: clamp(0.5rem, 3vw, 1rem) 1rem clamp(0.25rem, 1vw, 0.5rem);
 }
+
 .game-header h1 {
   font-size: clamp(1.4rem, 5vw, 2.2rem);
   font-weight: 800;
@@ -71,12 +80,13 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   padding: clamp(0.4rem, 1.5vw, 0.75rem);
-  background: rgba(255,255,255,0.3);
-  border-radius: 12px;
+  background: rgba(255,255,255,0.42);
+  border: 1px solid rgba(22, 52, 82, 0.08);
+  border-radius: 16px;
   margin: clamp(0.25rem, 1vw, 0.5rem) 1rem;
   max-width: 540px;
   width: calc(100% - 2rem);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 24px rgba(22, 52, 82, 0.08);
 }
 
 .score-item {
@@ -85,6 +95,7 @@ body {
   align-items: center;
   gap: 0.15rem;
 }
+
 .score-item .label {
   font-size: 0.7rem;
   font-weight: 700;
@@ -92,14 +103,21 @@ body {
   letter-spacing: 1px;
   color: var(--text-mid);
 }
+
 .score-item .value {
   font-size: clamp(1.3rem, 5vw, 1.7rem);
   font-weight: 800;
   color: var(--text-dark);
   line-height: 1;
 }
-#score-value  { color: var(--correct); }
-#lives-value  { color: var(--incorrect); }
+
+#score-value {
+  color: var(--correct);
+}
+
+#lives-value {
+  color: var(--incorrect);
+}
 
 .question-area {
   display: flex;
@@ -107,18 +125,21 @@ body {
   justify-content: center;
   gap: clamp(0.5rem, 2vw, 1rem);
   padding: clamp(0.4rem, 1.5vw, 0.75rem) 1rem;
-  background: rgba(255,255,255,0.35);
-  border-radius: 12px;
+  background: rgba(255,255,255,0.48);
+  border: 1px solid rgba(22, 52, 82, 0.08);
+  border-radius: 16px;
   margin: 0.25rem 1rem;
   max-width: 540px;
   width: calc(100% - 2rem);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 24px rgba(22, 52, 82, 0.08);
   min-height: 56px;
 }
+
 .flag-display {
   font-size: clamp(2rem, 6vw, 3rem);
   line-height: 1;
 }
+
 .country-name {
   font-size: clamp(1.1rem, 4vw, 1.5rem);
   font-weight: 700;
@@ -134,21 +155,91 @@ body {
   justify-content: center;
 }
 
-#world-map {
+.map-stage {
   width: 100%;
-  height: auto;
   max-width: 1000px;
   aspect-ratio: 1000 / 600;
-  border: 3px solid var(--text-dark);
-  border-radius: 12px;
-  background: var(--ocean);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-  cursor: crosshair;
-  touch-action: none;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255,255,255,0.42), transparent 32%),
+    linear-gradient(180deg, var(--ocean-top), var(--ocean-bottom));
+  border: 3px solid rgba(22, 52, 82, 0.2);
+  box-shadow:
+    0 28px 60px rgba(22, 52, 82, 0.18),
+    inset 0 1px 0 rgba(255,255,255,0.35);
+  overflow: hidden;
+  position: relative;
+}
+
+.map-stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px);
+  background-size: 76px 76px;
+  opacity: 0.28;
+  pointer-events: none;
+}
+
+#world-map {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: pointer;
+  touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Intro Modal */
+.map-country {
+  fill: rgba(246, 236, 217, 0.95);
+  stroke: rgba(69, 98, 125, 0.92);
+  stroke-width: 1.15;
+  vector-effect: non-scaling-stroke;
+  transition:
+    fill 140ms ease,
+    stroke 140ms ease,
+    opacity 140ms ease,
+    filter 140ms ease;
+}
+
+.map-country:hover,
+.map-country:focus-visible {
+  fill: var(--land-fill-hover);
+  stroke: var(--text-dark);
+  outline: none;
+  filter: drop-shadow(0 0 8px rgba(255,255,255,0.55));
+}
+
+.map-country.is-target {
+  fill: #ffe19a;
+  stroke: var(--text-dark);
+  filter: drop-shadow(0 0 10px rgba(255, 225, 154, 0.8));
+  animation: mapPulse 1.3s ease-in-out infinite;
+}
+
+.map-country.is-found {
+  fill: var(--found-fill);
+  stroke: #2f7f45;
+  animation: none;
+}
+
+.map-country.is-wrong-guess {
+  fill: var(--wrong-fill);
+  stroke: #9f4e34;
+  filter: drop-shadow(0 0 8px rgba(239, 171, 143, 0.8));
+}
+
+@keyframes mapPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 0 rgba(255, 225, 154, 0.2));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(255, 225, 154, 0.9));
+  }
+}
+
 #intro-modal {
   position: fixed;
   inset: 0;
@@ -159,6 +250,7 @@ body {
   z-index: 100;
   backdrop-filter: blur(4px);
 }
+
 #intro-modal.hidden {
   display: none;
 }
@@ -177,8 +269,15 @@ body {
 }
 
 @keyframes popIn {
-  from { opacity: 0; transform: scale(0.7); }
-  to   { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .modal-card h2 {
@@ -200,11 +299,13 @@ body {
   gap: 0.4rem;
   margin-bottom: 1.5rem;
 }
+
 .name-field label {
   font-size: 0.9rem;
   font-weight: 700;
   color: var(--text-mid);
 }
+
 .name-field input {
   padding: 0.7rem 1rem;
   border: 2px solid #bbb;
@@ -217,6 +318,7 @@ body {
   transition: border-color 0.15s;
   width: 100%;
 }
+
 .name-field input:focus {
   border-color: var(--accent);
 }
@@ -234,10 +336,15 @@ body {
   letter-spacing: 0.5px;
   transition: background 0.15s, transform 0.1s;
 }
-.play-btn:hover { background: var(--accent-hover); }
-.play-btn:active { transform: scale(0.97); }
 
-/* Game Over Modal */
+.play-btn:hover {
+  background: var(--accent-hover);
+}
+
+.play-btn:active {
+  transform: scale(0.97);
+}
+
 #game-over-modal {
   display: none;
   position: fixed;
@@ -247,6 +354,7 @@ body {
   justify-content: center;
   z-index: 200;
 }
+
 #game-over-modal.visible {
   display: flex;
 }
@@ -254,39 +362,52 @@ body {
 .gameover-card {
   text-align: center;
 }
+
 .gameover-card h2 {
   font-size: 2.2rem;
   margin-bottom: 0.5rem;
 }
+
 .gameover-card .player-name-display {
   font-size: 1.3rem;
   color: var(--accent);
   font-weight: 700;
   margin-bottom: 1rem;
 }
+
 .gameover-card .final-stats {
   display: flex;
   gap: 1.5rem;
   justify-content: center;
   margin: 1rem 0 1.5rem;
 }
+
 .gameover-card .stat {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 .gameover-card .stat .num {
   font-size: 2.5rem;
   font-weight: 900;
 }
+
 .gameover-card .stat .lbl {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   color: var(--text-mid);
 }
-.gameover-card .stat .num.green { color: var(--correct); }
-.gameover-card .stat .num.red   { color: var(--incorrect); }
+
+.gameover-card .stat .num.green {
+  color: var(--correct);
+}
+
+.gameover-card .stat .num.red {
+  color: var(--incorrect);
+}
+
 .gameover-card button {
   padding: 0.7rem 2rem;
   background: var(--accent);
@@ -299,9 +420,11 @@ body {
   margin: 0.3rem;
   transition: background 0.15s;
 }
-.gameover-card button:hover { background: var(--accent-hover); }
 
-/* Feedback toast */
+.gameover-card button:hover {
+  background: var(--accent-hover);
+}
+
 #feedback {
   position: fixed;
   bottom: 2rem;
@@ -310,20 +433,35 @@ body {
   padding: 0.75rem 1.5rem;
   border-radius: 12px;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   z-index: 50;
   box-shadow: 0 4px 16px rgba(0,0,0,0.2);
   transition: opacity 0.3s;
   pointer-events: none;
 }
+
 #feedback.hidden {
   opacity: 0;
 }
+
 #feedback.correct {
   background: #c8e6c9;
   color: #2e7d32;
 }
+
 #feedback.wrong {
   background: #ffcdd2;
   color: #c62828;
+}
+
+@media (max-width: 640px) {
+  .map-stage {
+    border-radius: 18px;
+  }
+
+  #feedback {
+    bottom: 1rem;
+    width: calc(100% - 2rem);
+    text-align: center;
+  }
 }
