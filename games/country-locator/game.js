@@ -137,13 +137,20 @@ function buildMap() {
 
   svg.setAttribute('viewBox', `0 0 ${mapData.width} ${mapData.height}`);
   const fragment = document.createDocumentFragment();
+  const baseLayer = document.createElementNS(svgNS, 'g');
+  const interactiveLayer = document.createElementNS(svgNS, 'g');
+  const allCountries = [
+    ...(mapData.backgroundCountries ?? []),
+    ...mapData.countries,
+  ];
 
-  (mapData.backgroundCountries ?? []).forEach((country) => {
+  allCountries.forEach((country) => {
     const path = document.createElementNS(svgNS, 'path');
     path.setAttribute('d', country.path);
-    path.setAttribute('class', 'map-country-background');
+    path.setAttribute('class', 'map-country-base');
+    path.dataset.countryName = country.name;
     path.setAttribute('aria-hidden', 'true');
-    fragment.appendChild(path);
+    baseLayer.appendChild(path);
   });
 
   mapData.countries.forEach((country) => {
@@ -155,10 +162,12 @@ function buildMap() {
     path.setAttribute('tabindex', '0');
     path.setAttribute('role', 'button');
     path.setAttribute('aria-label', `Select ${country.name}`);
-    fragment.appendChild(path);
+    interactiveLayer.appendChild(path);
     countryElements.set(country.id, path);
   });
 
+  fragment.appendChild(baseLayer);
+  fragment.appendChild(interactiveLayer);
   svg.appendChild(fragment);
 }
 

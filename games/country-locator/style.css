@@ -192,19 +192,20 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-.map-country-background,
-.map-country {
+.map-country-base {
   fill: rgba(246, 236, 217, 0.95);
   stroke: rgba(69, 98, 125, 0.92);
   stroke-width: 1.15;
   vector-effect: non-scaling-stroke;
-}
-
-.map-country-background {
   pointer-events: none;
 }
 
 .map-country {
+  fill: rgba(0, 0, 0, 0);
+  stroke: rgba(0, 0, 0, 0);
+  stroke-width: 1.15;
+  vector-effect: non-scaling-stroke;
+  pointer-events: all;
   transition:
     fill 140ms ease,
     stroke 140ms ease,
@@ -214,7 +215,7 @@ body {
 
 .map-country:hover,
 .map-country:focus-visible {
-  fill: var(--land-fill-hover);
+  fill: rgba(255, 230, 163, 0.72);
   stroke: var(--text-dark);
   outline: none;
   filter: drop-shadow(0 0 8px rgba(255,255,255,0.55));
