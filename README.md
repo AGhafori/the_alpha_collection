@@ -82,23 +82,6 @@ You can also use the included compose file:
 HOST_IP=0.0.0.0 HOST_PORT=8080 docker-compose up -d --build
 ```
 
-### Embed in WordPress
-
-The simplest WordPress integration is to host this repository as static files and embed the collection with an `iframe`.
-
-Recommended setup:
-
-1. Deploy the repo to a public path such as `/the-alpha-collection/` on your web server.
-2. Open [wordpress-page.html](/home/lahlas/Repositories/Apps/the_alpha_collection/wordpress-page.html).
-3. Paste its contents into a WordPress `Custom HTML` block or your page builder HTML module.
-4. If your game is hosted at a different URL, replace each `/the-alpha-collection/...` link in that file with the final public URL.
-
-This keeps the game logic, styles, and multilingual support inside the static app while making it playable directly from the WordPress page.
-
-If you are using WordPress.com or another hosted editor that strips `iframe` markup, use [wordpress-page-no-iframe.html](/home/lahlas/Repositories/Apps/the_alpha_collection/wordpress-page-no-iframe.html) instead. That version is a WordPress-safe launch page with styled buttons linking into the hosted game.
-
-If the editor also treats `<style>` as text or strips inline styling, use [wordpress-page-basic.html](/home/lahlas/Repositories/Apps/the_alpha_collection/wordpress-page-basic.html). That version contains only plain HTML content and links, so it can be rebuilt easily with standard Gutenberg blocks.
-
 ### Host on GitHub Pages
 
 This repository can be hosted directly on GitHub Pages as a static site.
@@ -120,8 +103,6 @@ Expected site URL:
 ```text
 https://YOUR_GITHUB_USERNAME.github.io/the_alpha_collection/
 ```
-
-After that, update the WordPress links in [wordpress-page-basic.html](/home/lahlas/Repositories/Apps/the_alpha_collection/wordpress-page-basic.html), [wordpress-page-no-iframe.html](/home/lahlas/Repositories/Apps/the_alpha_collection/wordpress-page-no-iframe.html), or [wordpress-page.html](/home/lahlas/Repositories/Apps/the_alpha_collection/wordpress-page.html) to the final GitHub Pages URL.
 
 ### Running with Kubernetes
 
