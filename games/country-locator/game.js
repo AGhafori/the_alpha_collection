@@ -112,7 +112,6 @@ function updateScoreboard() {
 function renderMapState() {
   countryElements.forEach((element, countryId) => {
     element.classList.toggle('is-found', foundCountries.has(countryId));
-    element.classList.toggle('is-target', gameActive && activeCountryId === countryId && !foundCountries.has(countryId));
     element.classList.toggle('is-wrong-guess', wrongCountryId === countryId);
   });
 }
