@@ -1,4 +1,4 @@
-const CACHE_NAME = 'alpha-collection-v3';
+const CACHE_NAME = 'alpha-collection-v4';
 const ASSETS = [
   './',
   './index.html',
@@ -9,6 +9,7 @@ const ASSETS = [
   './games/alphabet/i18n.js',
   './games/country-locator/index.html',
   './games/country-locator/style.css',
+  './games/country-locator/map-data.js',
   './games/country-locator/game.js',
   './icons/icon-192.png',
   './icons/icon-512.png',
