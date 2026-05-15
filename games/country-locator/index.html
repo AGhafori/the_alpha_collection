@@ -76,6 +76,11 @@
 
   <main class="map-container">
     <div class="map-stage" id="map-stage">
+      <div class="map-controls" aria-label="Map zoom controls">
+        <button type="button" class="map-control-btn" id="zoom-in-btn" aria-label="Zoom in on map">+</button>
+        <button type="button" class="map-control-btn" id="zoom-out-btn" aria-label="Zoom out on map">-</button>
+        <button type="button" class="map-control-btn map-control-reset" id="zoom-reset-btn" aria-label="Reset map zoom">Reset</button>
+      </div>
       <svg id="world-map" viewBox="0 0 1000 600" role="img" aria-label="World map with revealed countries"></svg>
     </div>
   </main>

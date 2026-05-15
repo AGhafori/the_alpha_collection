@@ -291,6 +291,7 @@ body {
     inset 0 1px 0 rgba(255,255,255,0.35);
   overflow: hidden;
   position: relative;
+  touch-action: none;
 }
 
 .map-stage::before {
@@ -309,8 +310,43 @@ body {
   width: 100%;
   height: 100%;
   display: block;
-  touch-action: manipulation;
+  transform-origin: center center;
+  transition: transform 160ms ease;
   -webkit-tap-highlight-color: transparent;
+  will-change: transform;
+}
+
+.map-stage.is-panning #world-map {
+  transition: none;
+}
+
+.map-controls {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  z-index: 3;
+  display: flex;
+  gap: 0.45rem;
+}
+
+.map-control-btn {
+  min-width: 2.5rem;
+  height: 2.5rem;
+  padding: 0 0.8rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text-dark);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(22, 52, 82, 0.16);
+}
+
+.map-control-reset {
+  min-width: 4.6rem;
+  font-size: 0.9rem;
 }
 
 .map-country-background,
@@ -580,6 +616,18 @@ body {
 
   .map-stage {
     border-radius: 18px;
+  }
+
+  .map-controls {
+    top: auto;
+    right: 0.65rem;
+    bottom: 0.65rem;
+  }
+
+  .map-control-btn {
+    min-width: 2.75rem;
+    height: 2.75rem;
+    font-size: 1.05rem;
   }
 
   #feedback {

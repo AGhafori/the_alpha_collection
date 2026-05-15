@@ -50,6 +50,10 @@ const SCORE_CORRECT = 10;
 const svgNS = 'http://www.w3.org/2000/svg';
 const svg = document.getElementById('world-map');
 const outlineSvg = document.getElementById('country-outline');
+const mapStage = document.getElementById('map-stage');
+const zoomInBtn = document.getElementById('zoom-in-btn');
+const zoomOutBtn = document.getElementById('zoom-out-btn');
+const zoomResetBtn = document.getElementById('zoom-reset-btn');
 
 const scoreEl = document.getElementById('score-value');
 const missesEl = document.getElementById('lives-value');
@@ -99,6 +103,19 @@ let gameActive = false;
 let activeCountryId = null;
 let answerLocked = false;
 let feedbackTimer = null;
+let mapScale = 1;
+let mapOffsetX = 0;
+let mapOffsetY = 0;
+let isPanningMap = false;
+let panPointerId = null;
+let panStartX = 0;
+let panStartY = 0;
+let panOriginX = 0;
+let panOriginY = 0;
+
+const MIN_MAP_SCALE = 1;
+const MAX_MAP_SCALE = 3;
+const MAP_SCALE_STEP = 0.35;
 
 function log(message) {
   console.log('[KnowYourContinents]', message);
@@ -128,6 +145,52 @@ function normalizeAnswer(value) {
 function setGuessEnabled(enabled) {
   guessInput.disabled = !enabled;
   guessBtn.disabled = !enabled;
+}
+
+function clamp(value, min, max) {
+  return Math.min(max, Math.max(min, value));
+}
+
+function getMapPanLimits(scale = mapScale) {
+  const stageRect = mapStage.getBoundingClientRect();
+  const maxOffsetX = ((scale - 1) * stageRect.width) / 2;
+  const maxOffsetY = ((scale - 1) * stageRect.height) / 2;
+
+  return {
+    maxOffsetX,
+    maxOffsetY,
+  };
+}
+
+function clampMapOffsets(scale = mapScale) {
+  const { maxOffsetX, maxOffsetY } = getMapPanLimits(scale);
+  mapOffsetX = clamp(mapOffsetX, -maxOffsetX, maxOffsetX);
+  mapOffsetY = clamp(mapOffsetY, -maxOffsetY, maxOffsetY);
+}
+
+function updateMapTransform() {
+  clampMapOffsets();
+  svg.style.transform = `translate(${mapOffsetX}px, ${mapOffsetY}px) scale(${mapScale})`;
+  mapStage.classList.toggle('is-zoomed', mapScale > 1);
+}
+
+function setMapZoom(nextScale) {
+  mapScale = clamp(nextScale, MIN_MAP_SCALE, MAX_MAP_SCALE);
+
+  if (mapScale === MIN_MAP_SCALE) {
+    mapOffsetX = 0;
+    mapOffsetY = 0;
+  }
+
+  updateMapTransform();
+}
+
+function adjustMapZoom(delta) {
+  setMapZoom(mapScale + delta);
+}
+
+function resetMapZoom() {
+  setMapZoom(MIN_MAP_SCALE);
 }
 
 function updateScoreboard() {
@@ -359,10 +422,58 @@ playAgainBtn.addEventListener('click', () => {
 backHomeBtn.addEventListener('click', () => {
   window.location.href = '../../index.html';
 });
+zoomInBtn.addEventListener('click', () => {
+  adjustMapZoom(MAP_SCALE_STEP);
+});
+zoomOutBtn.addEventListener('click', () => {
+  adjustMapZoom(-MAP_SCALE_STEP);
+});
+zoomResetBtn.addEventListener('click', resetMapZoom);
+
+mapStage.addEventListener('pointerdown', (event) => {
+  if (mapScale <= 1 || event.pointerType === 'mouse') {
+    return;
+  }
+
+  isPanningMap = true;
+  panPointerId = event.pointerId;
+  panStartX = event.clientX;
+  panStartY = event.clientY;
+  panOriginX = mapOffsetX;
+  panOriginY = mapOffsetY;
+  mapStage.classList.add('is-panning');
+  mapStage.setPointerCapture(event.pointerId);
+});
+
+mapStage.addEventListener('pointermove', (event) => {
+  if (!isPanningMap || event.pointerId !== panPointerId) {
+    return;
+  }
+
+  mapOffsetX = panOriginX + (event.clientX - panStartX);
+  mapOffsetY = panOriginY + (event.clientY - panStartY);
+  updateMapTransform();
+});
+
+function stopMapPan(event) {
+  if (event.pointerId !== undefined && event.pointerId !== panPointerId) {
+    return;
+  }
+
+  isPanningMap = false;
+  panPointerId = null;
+  mapStage.classList.remove('is-panning');
+}
+
+mapStage.addEventListener('pointerup', stopMapPan);
+mapStage.addEventListener('pointercancel', stopMapPan);
+mapStage.addEventListener('pointerleave', stopMapPan);
+window.addEventListener('resize', updateMapTransform);
 
 function init() {
   try {
     buildMap();
+    updateMapTransform();
     updateScoreboard();
     renderMapState();
     renderOutline(null);
