@@ -1,62 +1,64 @@
 const COUNTRIES = [
-  { id: 'US', name: 'United States', flag: '🇺🇸' },
-  { id: 'CA', name: 'Canada', flag: '🇨🇦' },
-  { id: 'MX', name: 'Mexico', flag: '🇲🇽' },
-  { id: 'CU', name: 'Cuba', flag: '🇨🇺' },
-  { id: 'BR', name: 'Brazil', flag: '🇧🇷' },
-  { id: 'AR', name: 'Argentina', flag: '🇦🇷' },
-  { id: 'CO', name: 'Colombia', flag: '🇨🇴' },
-  { id: 'CL', name: 'Chile', flag: '🇨🇱' },
-  { id: 'PE', name: 'Peru', flag: '🇵🇪' },
-  { id: 'VE', name: 'Venezuela', flag: '🇻🇪' },
-  { id: 'GB', name: 'United Kingdom', flag: '🇬🇧' },
-  { id: 'FR', name: 'France', flag: '🇫🇷' },
-  { id: 'DE', name: 'Germany', flag: '🇩🇪' },
-  { id: 'IT', name: 'Italy', flag: '🇮🇹' },
-  { id: 'ES', name: 'Spain', flag: '🇪🇸' },
-  { id: 'PT', name: 'Portugal', flag: '🇵🇹' },
-  { id: 'SE', name: 'Sweden', flag: '🇸🇪' },
-  { id: 'NO', name: 'Norway', flag: '🇳🇴' },
-  { id: 'GR', name: 'Greece', flag: '🇬🇷' },
-  { id: 'PL', name: 'Poland', flag: '🇵🇱' },
-  { id: 'NL', name: 'Netherlands', flag: '🇳🇱' },
-  { id: 'CH', name: 'Switzerland', flag: '🇨🇭' },
-  { id: 'IE', name: 'Ireland', flag: '🇮🇪' },
-  { id: 'DK', name: 'Denmark', flag: '🇩🇰' },
-  { id: 'EG', name: 'Egypt', flag: '🇪🇬' },
-  { id: 'ZA', name: 'South Africa', flag: '🇿🇦' },
-  { id: 'NG', name: 'Nigeria', flag: '🇳🇬' },
-  { id: 'KE', name: 'Kenya', flag: '🇰🇪' },
-  { id: 'MA', name: 'Morocco', flag: '🇲🇦' },
-  { id: 'DZ', name: 'Algeria', flag: '🇩🇿' },
-  { id: 'GH', name: 'Ghana', flag: '🇬🇭' },
-  { id: 'ET', name: 'Ethiopia', flag: '🇪🇹' },
-  { id: 'CN', name: 'China', flag: '🇨🇳' },
-  { id: 'IN', name: 'India', flag: '🇮🇳' },
-  { id: 'JP', name: 'Japan', flag: '🇯🇵' },
-  { id: 'KR', name: 'South Korea', flag: '🇰🇷' },
-  { id: 'RU', name: 'Russia', flag: '🇷🇺' },
-  { id: 'ID', name: 'Indonesia', flag: '🇮🇩' },
-  { id: 'TH', name: 'Thailand', flag: '🇹🇭' },
-  { id: 'SA', name: 'Saudi Arabia', flag: '🇸🇦' },
-  { id: 'TR', name: 'Turkey', flag: '🇹🇷' },
-  { id: 'IR', name: 'Iran', flag: '🇮🇷' },
-  { id: 'AU', name: 'Australia', flag: '🇦🇺' },
-  { id: 'NZ', name: 'New Zealand', flag: '🇳🇿' },
+  { id: 'US', name: 'United States', continent: 'North America', aliases: ['usa', 'us', 'united states of america'] },
+  { id: 'CA', name: 'Canada', continent: 'North America' },
+  { id: 'MX', name: 'Mexico', continent: 'North America' },
+  { id: 'CU', name: 'Cuba', continent: 'North America' },
+  { id: 'BR', name: 'Brazil', continent: 'South America' },
+  { id: 'AR', name: 'Argentina', continent: 'South America' },
+  { id: 'CO', name: 'Colombia', continent: 'South America' },
+  { id: 'CL', name: 'Chile', continent: 'South America' },
+  { id: 'PE', name: 'Peru', continent: 'South America' },
+  { id: 'VE', name: 'Venezuela', continent: 'South America' },
+  { id: 'GB', name: 'United Kingdom', continent: 'Europe', aliases: ['uk', 'britain', 'great britain'] },
+  { id: 'FR', name: 'France', continent: 'Europe' },
+  { id: 'DE', name: 'Germany', continent: 'Europe' },
+  { id: 'IT', name: 'Italy', continent: 'Europe' },
+  { id: 'ES', name: 'Spain', continent: 'Europe' },
+  { id: 'PT', name: 'Portugal', continent: 'Europe' },
+  { id: 'SE', name: 'Sweden', continent: 'Europe' },
+  { id: 'NO', name: 'Norway', continent: 'Europe' },
+  { id: 'GR', name: 'Greece', continent: 'Europe' },
+  { id: 'PL', name: 'Poland', continent: 'Europe' },
+  { id: 'NL', name: 'Netherlands', continent: 'Europe' },
+  { id: 'CH', name: 'Switzerland', continent: 'Europe' },
+  { id: 'IE', name: 'Ireland', continent: 'Europe' },
+  { id: 'DK', name: 'Denmark', continent: 'Europe' },
+  { id: 'EG', name: 'Egypt', continent: 'Africa' },
+  { id: 'ZA', name: 'South Africa', continent: 'Africa' },
+  { id: 'NG', name: 'Nigeria', continent: 'Africa' },
+  { id: 'KE', name: 'Kenya', continent: 'Africa' },
+  { id: 'MA', name: 'Morocco', continent: 'Africa' },
+  { id: 'DZ', name: 'Algeria', continent: 'Africa' },
+  { id: 'GH', name: 'Ghana', continent: 'Africa' },
+  { id: 'ET', name: 'Ethiopia', continent: 'Africa' },
+  { id: 'CN', name: 'China', continent: 'Asia' },
+  { id: 'IN', name: 'India', continent: 'Asia' },
+  { id: 'JP', name: 'Japan', continent: 'Asia' },
+  { id: 'KR', name: 'South Korea', continent: 'Asia', aliases: ['korea', 'republic of korea'] },
+  { id: 'RU', name: 'Russia', continent: 'Asia' },
+  { id: 'ID', name: 'Indonesia', continent: 'Asia' },
+  { id: 'TH', name: 'Thailand', continent: 'Asia' },
+  { id: 'SA', name: 'Saudi Arabia', continent: 'Asia' },
+  { id: 'TR', name: 'Turkey', continent: 'Asia' },
+  { id: 'IR', name: 'Iran', continent: 'Asia' },
+  { id: 'AU', name: 'Australia', continent: 'Oceania' },
+  { id: 'NZ', name: 'New Zealand', continent: 'Oceania' },
 ];
 
 const SCORE_CORRECT = 10;
-const SCORE_WRONG = -5;
-const MAX_LIVES = 4;
 
 const svgNS = 'http://www.w3.org/2000/svg';
 const svg = document.getElementById('world-map');
+const outlineSvg = document.getElementById('country-outline');
 
 const scoreEl = document.getElementById('score-value');
-const livesEl = document.getElementById('lives-value');
+const missesEl = document.getElementById('lives-value');
 const progressEl = document.getElementById('question-count');
-const flagDisplay = document.getElementById('flag-display');
+const continentNameEl = document.getElementById('continent-name');
 const countryNameEl = document.getElementById('country-name');
+const guessForm = document.getElementById('guess-form');
+const guessInput = document.getElementById('guess-input');
+const guessBtn = document.getElementById('guess-btn');
 const introModal = document.getElementById('intro-modal');
 const nameInput = document.getElementById('player-name');
 const playBtn = document.getElementById('play-btn');
@@ -66,6 +68,7 @@ const gameoverScore = document.getElementById('gameover-score');
 const gameoverErrors = document.getElementById('gameover-errors');
 const gameoverCorrect = document.getElementById('gameover-correct');
 const gameoverTitle = document.getElementById('gameover-title');
+const replayRoundBtn = document.getElementById('replay-round-btn');
 const playAgainBtn = document.getElementById('play-again-btn');
 const backHomeBtn = document.getElementById('back-home-btn');
 const feedbackEl = document.getElementById('feedback');
@@ -74,22 +77,31 @@ const mapData = window.COUNTRY_LOCATOR_MAP;
 const countryById = new Map(COUNTRIES.map((country) => [country.id, country]));
 const mapCountryById = new Map((mapData?.countries ?? []).map((country) => [country.id, country]));
 const countryElements = new Map();
+const countriesByContinent = COUNTRIES.reduce((groups, country) => {
+  if (!groups.has(country.continent)) {
+    groups.set(country.continent, []);
+  }
+
+  groups.get(country.continent).push(country);
+  return groups;
+}, new Map());
 
 let score = 0;
-let lives = MAX_LIVES;
-let questionIndex = 0;
 let wrongCount = 0;
 let correctCount = 0;
-let questionOrder = [];
-let foundCountries = new Set();
+let answeredCount = 0;
+let activeContinent = '';
+let roundCountryIds = [];
+let roundIndex = 0;
+let revealedCountries = new Set();
+let missedCountries = new Set();
 let gameActive = false;
 let activeCountryId = null;
 let answerLocked = false;
-let wrongCountryId = null;
 let feedbackTimer = null;
 
 function log(message) {
-  console.log('[CountryLocator]', message);
+  console.log('[KnowYourContinents]', message);
 }
 
 function shuffle(items) {
@@ -103,16 +115,32 @@ function shuffle(items) {
   return copy;
 }
 
+function normalizeAnswer(value) {
+  return value
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+function setGuessEnabled(enabled) {
+  guessInput.disabled = !enabled;
+  guessBtn.disabled = !enabled;
+}
+
 function updateScoreboard() {
   scoreEl.textContent = score;
-  livesEl.textContent = lives;
-  progressEl.textContent = `${correctCount}/${COUNTRIES.length}`;
+  missesEl.textContent = wrongCount;
+  progressEl.textContent = `${answeredCount}/${roundCountryIds.length}`;
 }
 
 function renderMapState() {
   countryElements.forEach((element, countryId) => {
-    element.classList.toggle('is-found', foundCountries.has(countryId));
-    element.classList.toggle('is-wrong-guess', wrongCountryId === countryId);
+    element.classList.toggle('is-current-country', countryId === activeCountryId);
+    element.classList.toggle('is-found', revealedCountries.has(countryId));
+    element.classList.toggle('is-missed', missedCountries.has(countryId));
   });
 }
 
@@ -127,12 +155,12 @@ function showFeedback(message, type) {
 
   feedbackTimer = window.setTimeout(() => {
     feedbackEl.classList.add('hidden');
-  }, 1500);
+  }, 1700);
 }
 
 function buildMap() {
   if (!mapData?.countries?.length) {
-    throw new Error('Country Locator map data is missing.');
+    throw new Error('Know Your Continents map data is missing.');
   }
 
   svg.setAttribute('viewBox', `0 0 ${mapData.width} ${mapData.height}`);
@@ -151,10 +179,7 @@ function buildMap() {
     path.setAttribute('d', country.path);
     path.setAttribute('class', 'map-country');
     path.dataset.countryId = country.id;
-    path.dataset.countryName = country.name;
-    path.setAttribute('tabindex', '0');
-    path.setAttribute('role', 'button');
-    path.setAttribute('aria-label', `Select ${country.name}`);
+    path.setAttribute('aria-hidden', 'true');
     fragment.appendChild(path);
     countryElements.set(country.id, path);
   });
@@ -162,12 +187,60 @@ function buildMap() {
   svg.appendChild(fragment);
 }
 
+function renderOutline(countryId) {
+  outlineSvg.replaceChildren();
+
+  if (!countryId) {
+    outlineSvg.setAttribute('viewBox', '0 0 100 100');
+    return;
+  }
+
+  const mapCountry = mapCountryById.get(countryId);
+  if (!mapCountry) {
+    outlineSvg.setAttribute('viewBox', '0 0 100 100');
+    return;
+  }
+
+  const path = document.createElementNS(svgNS, 'path');
+  path.setAttribute('d', mapCountry.path);
+  path.setAttribute('class', 'preview-country');
+  outlineSvg.appendChild(path);
+
+  const bounds = path.getBBox();
+  const pad = Math.max(bounds.width, bounds.height) * 0.18 + 8;
+  const viewBox = [
+    bounds.x - pad,
+    bounds.y - pad,
+    Math.max(bounds.width + pad * 2, 32),
+    Math.max(bounds.height + pad * 2, 32),
+  ].join(' ');
+
+  outlineSvg.setAttribute('viewBox', viewBox);
+}
+
 function queueNextStep(callback, delay) {
   answerLocked = true;
+  setGuessEnabled(false);
+
   window.setTimeout(() => {
     answerLocked = false;
     callback();
   }, delay);
+}
+
+function finishGame() {
+  gameActive = false;
+  activeCountryId = null;
+  renderOutline(null);
+  renderMapState();
+  setGuessEnabled(false);
+
+  gameoverTitle.textContent = `🏁 ${activeContinent} complete`;
+  gameoverName.textContent = `${nameInput.value.trim() || 'Player'} • ${activeContinent}`;
+  gameoverScore.textContent = score;
+  gameoverErrors.textContent = wrongCount;
+  gameoverCorrect.textContent = correctCount;
+  gameOverModal.classList.add('visible');
 }
 
 function nextQuestion() {
@@ -175,65 +248,41 @@ function nextQuestion() {
     return;
   }
 
-  wrongCountryId = null;
-  renderMapState();
-
-  const availableCountries = COUNTRIES.filter((country) => !foundCountries.has(country.id));
-  if (availableCountries.length === 0) {
-    gameActive = false;
-    activeCountryId = null;
-    renderMapState();
-    window.setTimeout(() => {
-      gameoverTitle.textContent = '🏆 You found them all!';
-      gameoverName.textContent = nameInput.value.trim() || 'Player';
-      gameoverScore.textContent = score;
-      gameoverErrors.textContent = wrongCount;
-      gameoverCorrect.textContent = correctCount;
-      gameOverModal.classList.add('visible');
-    }, 500);
+  if (roundIndex >= roundCountryIds.length) {
+    finishGame();
     return;
   }
 
-  if (questionIndex >= questionOrder.length) {
-    questionOrder = shuffle(availableCountries.map((country) => country.id));
-    questionIndex = 0;
-  }
+  activeCountryId = roundCountryIds[roundIndex];
+  roundIndex += 1;
 
-  const nextCountryId = questionOrder[questionIndex];
-  questionIndex += 1;
-
-  const nextCountry = countryById.get(nextCountryId);
-  if (!nextCountry || foundCountries.has(nextCountry.id)) {
-    nextQuestion();
-    return;
-  }
-
-  activeCountryId = nextCountry.id;
-  flagDisplay.textContent = nextCountry.flag;
-  countryNameEl.textContent = nextCountry.name;
+  renderOutline(activeCountryId);
   renderMapState();
-  log(`Find ${nextCountry.name}`);
+  countryNameEl.textContent = 'Name the country shown by the outline.';
+  guessInput.value = '';
+  setGuessEnabled(true);
+  guessInput.focus();
+
+  const country = countryById.get(activeCountryId);
+  log(`Guess ${country?.name ?? activeCountryId} in ${activeContinent}`);
 }
 
-function gameOver() {
-  gameActive = false;
-  activeCountryId = null;
-  renderMapState();
-  gameoverTitle.textContent = '💀 Game Over';
-  gameoverName.textContent = nameInput.value.trim() || 'Player';
-  gameoverScore.textContent = score;
-  gameoverErrors.textContent = wrongCount;
-  gameoverCorrect.textContent = correctCount;
-  gameOverModal.classList.add('visible');
+function isCorrectGuess(country, guess) {
+  const acceptedAnswers = [country.name, ...(country.aliases ?? [])].map(normalizeAnswer);
+  return acceptedAnswers.includes(normalizeAnswer(guess));
 }
 
-function handleCountrySelection(countryId) {
+function handleGuessSubmit(event) {
+  event.preventDefault();
+
   if (!gameActive || answerLocked) {
     return;
   }
 
-  if (!countryId) {
-    showFeedback('Click on a country!', 'wrong');
+  const guess = guessInput.value.trim();
+  if (!guess) {
+    showFeedback('Type a country name first.', 'wrong');
+    guessInput.focus();
     return;
   }
 
@@ -242,78 +291,54 @@ function handleCountrySelection(countryId) {
     return;
   }
 
-  if (countryId === targetCountry.id) {
-    if (foundCountries.has(targetCountry.id)) {
-      nextQuestion();
-      return;
-    }
+  answeredCount += 1;
 
+  if (isCorrectGuess(targetCountry, guess)) {
     score += SCORE_CORRECT;
     correctCount += 1;
-    foundCountries.add(targetCountry.id);
+    revealedCountries.add(targetCountry.id);
     updateScoreboard();
     renderMapState();
-    showFeedback(`✓ Correct! +${SCORE_CORRECT}`, 'correct');
+    showFeedback(`Correct. ${targetCountry.name} is now revealed on the map.`, 'correct');
     queueNextStep(nextQuestion, 900);
     return;
   }
 
-  score += SCORE_WRONG;
-  lives -= 1;
   wrongCount += 1;
-  wrongCountryId = countryId;
+  missedCountries.add(targetCountry.id);
   updateScoreboard();
   renderMapState();
-
-  showFeedback(`✗ Wrong! -${Math.abs(SCORE_WRONG)}`, 'wrong');
-
-  if (lives <= 0) {
-    queueNextStep(gameOver, 700);
-  } else {
-    queueNextStep(nextQuestion, 1100);
-  }
+  showFeedback(`Missed. The outline was ${targetCountry.name}.`, 'wrong');
+  queueNextStep(nextQuestion, 1100);
 }
 
-function startGame() {
+function pickRandomContinent() {
+  return shuffle([...countriesByContinent.keys()])[0];
+}
+
+function startGame(continent = pickRandomContinent()) {
+  activeContinent = typeof continent === 'string' ? continent : pickRandomContinent();
+  roundCountryIds = shuffle(countriesByContinent.get(activeContinent).map((country) => country.id));
+  roundIndex = 0;
   score = 0;
-  lives = MAX_LIVES;
   wrongCount = 0;
   correctCount = 0;
-  questionIndex = 0;
-  questionOrder = shuffle(COUNTRIES.map((country) => country.id));
-  foundCountries = new Set();
+  answeredCount = 0;
+  revealedCountries = new Set();
+  missedCountries = new Set();
   gameActive = true;
   activeCountryId = null;
   answerLocked = false;
-  wrongCountryId = null;
 
+  continentNameEl.textContent = activeContinent;
+  countryNameEl.textContent = 'Get ready for the first outline.';
   updateScoreboard();
-  flagDisplay.textContent = '';
-  countryNameEl.textContent = 'Find the country...';
+  renderMapState();
+  renderOutline(null);
   gameOverModal.classList.remove('visible');
   introModal.classList.add('hidden');
-  renderMapState();
 
-  window.setTimeout(nextQuestion, 350);
-}
-
-function handleMapClick(event) {
-  const countryPath = event.target.closest('.map-country');
-  handleCountrySelection(countryPath?.dataset.countryId ?? null);
-}
-
-function handleMapKeydown(event) {
-  const countryPath = event.target.closest('.map-country');
-  if (!countryPath) {
-    return;
-  }
-
-  if (event.key !== 'Enter' && event.key !== ' ') {
-    return;
-  }
-
-  event.preventDefault();
-  handleCountrySelection(countryPath.dataset.countryId);
+  window.setTimeout(nextQuestion, 250);
 }
 
 playBtn.addEventListener('click', startGame);
@@ -321,6 +346,11 @@ nameInput.addEventListener('keydown', (event) => {
   if (event.key === 'Enter') {
     playBtn.click();
   }
+});
+guessForm.addEventListener('submit', handleGuessSubmit);
+replayRoundBtn.addEventListener('click', () => {
+  gameOverModal.classList.remove('visible');
+  startGame(activeContinent || pickRandomContinent());
 });
 playAgainBtn.addEventListener('click', () => {
   gameOverModal.classList.remove('visible');
@@ -330,18 +360,17 @@ backHomeBtn.addEventListener('click', () => {
   window.location.href = '../../index.html';
 });
 
-svg.addEventListener('click', handleMapClick);
-svg.addEventListener('keydown', handleMapKeydown);
-
 function init() {
   try {
     buildMap();
     updateScoreboard();
     renderMapState();
-    flagDisplay.textContent = '🌍';
-    countryNameEl.textContent = 'Click Start to play!';
-    progressEl.textContent = `0/${COUNTRIES.length}`;
-    log('Country Locator loaded with SVG country outlines. Ready to play!');
+    renderOutline(null);
+    setGuessEnabled(false);
+    continentNameEl.textContent = 'Random at start';
+    countryNameEl.textContent = 'Press Start to get your first outline.';
+    progressEl.textContent = '0/0';
+    log('Know Your Continents loaded with continent-based reveal mode.');
   } catch (error) {
     console.error(error);
     countryNameEl.textContent = 'Map data failed to load';

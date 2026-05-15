@@ -3,28 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta name="description" content="Locate countries on the world map! Test your geography skills." />
+  <meta name="description" content="Guess country outlines from a random continent and reveal them on the world map." />
   <meta name="theme-color" content="#1a3a5c" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <link rel="manifest" href="../../manifest.json" />
   <link rel="icon" href="../../icons/icon-192.png" />
   <link rel="apple-touch-icon" href="../../icons/icon-192.png" />
-  <title>Country Locator – The Alpha Collection</title>
+  <title>Know Your Continents – The Alpha Collection</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <div id="intro-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal-card">
-      <h2 id="modal-title">🌍 Country Locator</h2>
+      <h2 id="modal-title">🌍 Know Your Continents</h2>
       <p class="description">
-        A country will appear with its <strong>flag</strong> and <strong>name</strong>.
-        Your mission: click on the correct country on the world map!
+        Each game starts with a <strong>random continent</strong> in focus.
+        You will see a <strong>country outline</strong> and must type the country's name.
         <br /><br />
-        ✅ <strong>Correct</strong> — +10 points, the country fills in green.<br />
-        ❌ <strong>Wrong</strong> — -5 points, and you lose one of your 4 lives.<br />
-        💀 <strong>4 wrong guesses</strong> — Game Over!
+        ✅ <strong>Correct</strong> — +10 points and the country is revealed on the map.<br />
+        ❌ <strong>Wrong</strong> — the answer is counted as a miss and the game moves on.<br />
+        🧭 <strong>Goal</strong> — reveal as many countries as you can in the chosen continent.
       </p>
       <div class="name-field">
         <label for="player-name">Your name</label>
@@ -37,7 +37,7 @@
   <a class="back-link" href="../../index.html" aria-label="Back to game board">← Back to Board</a>
 
   <header class="game-header">
-    <h1>🌍 Country Locator</h1>
+    <h1>🌍 Know Your Continents</h1>
   </header>
 
   <div class="scoreboard" role="region" aria-label="Score">
@@ -46,23 +46,37 @@
       <span class="value" id="score-value">0</span>
     </div>
     <div class="score-item">
-      <span class="label">Lives</span>
-      <span class="value" id="lives-value">4</span>
+      <span class="label">Missed</span>
+      <span class="value" id="lives-value">0</span>
     </div>
     <div class="score-item">
       <span class="label">Progress</span>
-      <span class="value" id="question-count">0/44</span>
+      <span class="value" id="question-count">0/0</span>
     </div>
   </div>
 
   <div class="question-area" id="question-area">
-    <span class="flag-display" id="flag-display"></span>
-    <span class="country-name" id="country-name">Click Start to play!</span>
+    <span class="continent-chip">Focus: <strong id="continent-name">Random at start</strong></span>
+    <span class="country-name" id="country-name">Press Start to get your first outline.</span>
   </div>
+
+  <section class="guess-layout" aria-label="Guess the country">
+    <div class="outline-card">
+      <span class="outline-label">Country outline</span>
+      <svg id="country-outline" viewBox="0 0 100 100" role="img" aria-label="Current country outline"></svg>
+    </div>
+
+    <form class="guess-card" id="guess-form">
+      <label for="guess-input">Your guess</label>
+      <input type="text" id="guess-input" placeholder="Type the country name" maxlength="40" autocomplete="off" disabled />
+      <button type="submit" id="guess-btn" disabled>Submit Guess</button>
+      <p class="guess-help">Correct answers reveal the country on the map. Misses move straight to the next outline.</p>
+    </form>
+  </section>
 
   <main class="map-container">
     <div class="map-stage" id="map-stage">
-      <svg id="world-map" viewBox="0 0 1000 600" role="img" aria-label="World map with clickable country outlines"></svg>
+      <svg id="world-map" viewBox="0 0 1000 600" role="img" aria-label="World map with revealed countries"></svg>
     </div>
   </main>
 
@@ -77,14 +91,16 @@
         </div>
         <div class="stat">
           <span class="num red" id="gameover-errors">0</span>
-          <span class="lbl">Wrong</span>
+          <span class="lbl">Missed</span>
         </div>
         <div class="stat">
           <span class="num" id="gameover-correct">0</span>
           <span class="lbl">Correct</span>
         </div>
       </div>
-      <button id="play-again-btn">🔄 Play Again</button>
+      <p class="gameover-actions-label">Choose your next round</p>
+      <button id="replay-round-btn">🔁 Another Round</button>
+      <button id="play-again-btn">🔄 New Continent</button>
       <button id="back-home-btn">🏠 Back to Board</button>
     </div>
   </div>
