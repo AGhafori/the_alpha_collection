@@ -68,6 +68,7 @@ const gameoverScore = document.getElementById('gameover-score');
 const gameoverErrors = document.getElementById('gameover-errors');
 const gameoverCorrect = document.getElementById('gameover-correct');
 const gameoverTitle = document.getElementById('gameover-title');
+const replayRoundBtn = document.getElementById('replay-round-btn');
 const playAgainBtn = document.getElementById('play-again-btn');
 const backHomeBtn = document.getElementById('back-home-btn');
 const feedbackEl = document.getElementById('feedback');
@@ -315,8 +316,8 @@ function pickRandomContinent() {
   return shuffle([...countriesByContinent.keys()])[0];
 }
 
-function startGame() {
-  activeContinent = pickRandomContinent();
+function startGame(continent = pickRandomContinent()) {
+  activeContinent = typeof continent === 'string' ? continent : pickRandomContinent();
   roundCountryIds = shuffle(countriesByContinent.get(activeContinent).map((country) => country.id));
   roundIndex = 0;
   score = 0;
@@ -347,6 +348,10 @@ nameInput.addEventListener('keydown', (event) => {
   }
 });
 guessForm.addEventListener('submit', handleGuessSubmit);
+replayRoundBtn.addEventListener('click', () => {
+  gameOverModal.classList.remove('visible');
+  startGame(activeContinent || pickRandomContinent());
+});
 playAgainBtn.addEventListener('click', () => {
   gameOverModal.classList.remove('visible');
   startGame();

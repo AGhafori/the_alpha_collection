@@ -485,6 +485,15 @@ body {
   margin-bottom: 1rem;
 }
 
+.gameover-actions-label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-mid);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0.5rem 0 0.7rem;
+}
+
 .gameover-card .final-stats {
   display: flex;
   gap: 1.5rem;
