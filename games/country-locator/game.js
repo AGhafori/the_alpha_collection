@@ -112,6 +112,10 @@ let panStartX = 0;
 let panStartY = 0;
 let panOriginX = 0;
 let panOriginY = 0;
+let pinchDistance = 0;
+let pinchStartScale = 1;
+
+const activeTouchPoints = new Map();
 
 const MIN_MAP_SCALE = 1;
 const MAX_MAP_SCALE = 3;
@@ -187,6 +191,26 @@ function setMapZoom(nextScale) {
 
 function adjustMapZoom(delta) {
   setMapZoom(mapScale + delta);
+}
+
+function getPointerDistance(firstPointer, secondPointer) {
+  return Math.hypot(secondPointer.x - firstPointer.x, secondPointer.y - firstPointer.y);
+}
+
+function beginMapPan(pointer) {
+  isPanningMap = true;
+  panPointerId = pointer.id;
+  panStartX = pointer.x;
+  panStartY = pointer.y;
+  panOriginX = mapOffsetX;
+  panOriginY = mapOffsetY;
+  mapStage.classList.add('is-panning');
+}
+
+function stopMapPanState() {
+  isPanningMap = false;
+  panPointerId = null;
+  mapStage.classList.remove('is-panning');
 }
 
 function resetMapZoom() {
@@ -431,21 +455,54 @@ zoomOutBtn.addEventListener('click', () => {
 zoomResetBtn.addEventListener('click', resetMapZoom);
 
 mapStage.addEventListener('pointerdown', (event) => {
-  if (mapScale <= 1 || event.pointerType === 'mouse') {
+  if (event.pointerType === 'mouse') {
     return;
   }
 
-  isPanningMap = true;
-  panPointerId = event.pointerId;
-  panStartX = event.clientX;
-  panStartY = event.clientY;
-  panOriginX = mapOffsetX;
-  panOriginY = mapOffsetY;
-  mapStage.classList.add('is-panning');
+  const pointer = {
+    id: event.pointerId,
+    x: event.clientX,
+    y: event.clientY,
+  };
+
+  activeTouchPoints.set(event.pointerId, pointer);
   mapStage.setPointerCapture(event.pointerId);
+
+  if (activeTouchPoints.size === 2) {
+    const [firstPointer, secondPointer] = [...activeTouchPoints.values()];
+    pinchDistance = getPointerDistance(firstPointer, secondPointer);
+    pinchStartScale = mapScale;
+    stopMapPanState();
+    return;
+  }
+
+  if (mapScale > 1) {
+    beginMapPan(pointer);
+  }
 });
 
 mapStage.addEventListener('pointermove', (event) => {
+  if (!activeTouchPoints.has(event.pointerId)) {
+    return;
+  }
+
+  activeTouchPoints.set(event.pointerId, {
+    id: event.pointerId,
+    x: event.clientX,
+    y: event.clientY,
+  });
+
+  if (activeTouchPoints.size === 2) {
+    const [firstPointer, secondPointer] = [...activeTouchPoints.values()];
+    const nextDistance = getPointerDistance(firstPointer, secondPointer);
+
+    if (pinchDistance > 0) {
+      setMapZoom(pinchStartScale * (nextDistance / pinchDistance));
+    }
+
+    return;
+  }
+
   if (!isPanningMap || event.pointerId !== panPointerId) {
     return;
   }
@@ -456,13 +513,19 @@ mapStage.addEventListener('pointermove', (event) => {
 });
 
 function stopMapPan(event) {
-  if (event.pointerId !== undefined && event.pointerId !== panPointerId) {
-    return;
+  activeTouchPoints.delete(event.pointerId);
+
+  if (activeTouchPoints.size < 2) {
+    pinchDistance = 0;
   }
 
-  isPanningMap = false;
-  panPointerId = null;
-  mapStage.classList.remove('is-panning');
+  if (event.pointerId === panPointerId || activeTouchPoints.size === 0) {
+    stopMapPanState();
+  }
+
+  if (activeTouchPoints.size === 1 && mapScale > 1) {
+    beginMapPan([...activeTouchPoints.values()][0]);
+  }
 }
 
 mapStage.addEventListener('pointerup', stopMapPan);
