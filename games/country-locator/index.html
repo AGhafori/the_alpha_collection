@@ -3,41 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta name="description" content="Guess country outlines from a random continent and reveal them on the world map." />
+  <meta name="description" content="Choose countries or cities mode and test your world geography skills on an interactive map." />
   <meta name="theme-color" content="#1a3a5c" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <link rel="manifest" href="../../manifest.json" />
   <link rel="icon" href="../../icons/icon-192.png" />
   <link rel="apple-touch-icon" href="../../icons/icon-192.png" />
-  <title>Know Your Continents – The Alpha Collection</title>
+  <title>Know Your Geography? – The Alpha Collection</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <div id="intro-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal-card">
-      <h2 id="modal-title">🌍 Know Your Continents</h2>
+      <h2 id="modal-title">🌍 Know Your Geography?</h2>
       <p class="description">
-        Each game starts with a <strong>random continent</strong> in focus.
-        You will see a <strong>country outline</strong> and must type the country's name.
-        <br /><br />
-        ✅ <strong>Correct</strong> — +10 points and the country is revealed on the map.<br />
-        ❌ <strong>Wrong</strong> — the answer is counted as a miss and the game moves on.<br />
-        🧭 <strong>Goal</strong> — reveal as many countries as you can in the chosen continent.
+        Choose a mode to begin.<br /><br />
+        🌎 <strong>Guess Countries</strong> — identify 20 random country outlines with only 3 misses allowed.<br />
+        🏙️ <strong>Guess Cities</strong> — a random country is highlighted and zoomed; guess city names or locate cities on the map.
       </p>
       <div class="name-field">
         <label for="player-name">Your name</label>
         <input type="text" id="player-name" placeholder="Enter your name…" maxlength="30" autocomplete="off" />
       </div>
-      <button class="play-btn" id="play-btn">▶ Start Game</button>
+      <div class="mode-buttons">
+        <button class="play-btn" id="play-countries-btn">🌎 Guess Countries</button>
+        <button class="play-btn" id="play-cities-btn">🏙️ Guess Cities</button>
+      </div>
     </div>
   </div>
 
   <a class="back-link" href="../../index.html" aria-label="Back to game board">← Back to Board</a>
 
   <header class="game-header">
-    <h1>🌍 Know Your Continents</h1>
+    <h1>🌍 Know Your Geography?</h1>
   </header>
 
   <div class="scoreboard" role="region" aria-label="Score">
@@ -46,7 +46,7 @@
       <span class="value" id="score-value">0</span>
     </div>
     <div class="score-item">
-      <span class="label">Missed</span>
+      <span class="label" id="lives-label">Missed</span>
       <span class="value" id="lives-value">0</span>
     </div>
     <div class="score-item">
@@ -56,21 +56,25 @@
   </div>
 
   <div class="question-area" id="question-area">
-    <span class="continent-chip">Focus: <strong id="continent-name">Random at start</strong></span>
+    <span class="continent-chip">Mode: <strong id="continent-name">Choose at start</strong></span>
     <span class="country-name" id="country-name">Press Start to get your first outline.</span>
   </div>
 
   <section class="guess-layout" aria-label="Guess the country">
     <div class="outline-card">
-      <span class="outline-label">Country outline</span>
+      <span class="outline-label" id="outline-label">Country outline</span>
       <svg id="country-outline" viewBox="0 0 100 100" role="img" aria-label="Current country outline"></svg>
     </div>
 
     <form class="guess-card" id="guess-form">
-      <label for="guess-input">Your guess</label>
+      <label for="guess-input" id="guess-label">Your guess</label>
       <input type="text" id="guess-input" placeholder="Type the country name" maxlength="40" autocomplete="off" disabled />
       <button type="submit" id="guess-btn" disabled>Submit Guess</button>
-      <p class="guess-help">Correct answers reveal the country on the map. Misses move straight to the next outline.</p>
+      <div class="city-submode-buttons" id="city-submode-buttons" hidden>
+        <button type="button" class="submode-btn" id="city-name-mode-btn">Type City Name</button>
+        <button type="button" class="submode-btn" id="city-locate-mode-btn">Locate City on Map</button>
+      </div>
+      <p class="guess-help" id="guess-help">Correct answers reveal the country on the map. Misses move straight to the next outline.</p>
     </form>
   </section>
 
@@ -105,8 +109,8 @@
         </div>
       </div>
       <p class="gameover-actions-label">Choose your next round</p>
-      <button id="replay-round-btn">🔁 Another Round</button>
-      <button id="play-again-btn">🔄 New Continent</button>
+      <button id="replay-round-btn">🔁 Replay Mode</button>
+      <button id="play-again-btn">🔄 New Mode Round</button>
       <button id="back-home-btn">🏠 Back to Board</button>
     </div>
   </div>

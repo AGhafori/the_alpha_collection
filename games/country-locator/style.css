@@ -506,6 +506,40 @@ body {
   transform: scale(0.97);
 }
 
+.mode-buttons {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.city-submode-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.submode-btn {
+  flex: 1 1 160px;
+  border: 1px solid rgba(22, 52, 82, 0.24);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.88);
+  color: var(--text-dark);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 0.55rem 0.7rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.submode-btn:hover {
+  background: #fff;
+}
+
+.submode-btn.active {
+  border-color: var(--accent);
+  background: rgba(43, 108, 176, 0.14);
+}
+
 #game-over-modal {
   display: none;
   position: fixed;
