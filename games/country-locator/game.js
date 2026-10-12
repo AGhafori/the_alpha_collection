@@ -45,7 +45,54 @@ const COUNTRIES = [
   { id: 'NZ', name: 'New Zealand', continent: 'Oceania' },
 ];
 
+const CITIES = [
+  { name: 'New York', countryId: 'US', lat: 40.7128, lon: -74.006, aliases: ['new york city', 'nyc'] },
+  { name: 'Toronto', countryId: 'CA', lat: 43.6532, lon: -79.3832 },
+  { name: 'Mexico City', countryId: 'MX', lat: 19.4326, lon: -99.1332, aliases: ['ciudad de mexico'] },
+  { name: 'Sao Paulo', countryId: 'BR', lat: -23.5505, lon: -46.6333, aliases: ['sao paulo'] },
+  { name: 'Buenos Aires', countryId: 'AR', lat: -34.6037, lon: -58.3816 },
+  { name: 'Bogota', countryId: 'CO', lat: 4.711, lon: -74.0721 },
+  { name: 'Santiago', countryId: 'CL', lat: -33.4489, lon: -70.6693 },
+  { name: 'Lima', countryId: 'PE', lat: -12.0464, lon: -77.0428 },
+  { name: 'London', countryId: 'GB', lat: 51.5074, lon: -0.1278 },
+  { name: 'Paris', countryId: 'FR', lat: 48.8566, lon: 2.3522 },
+  { name: 'Berlin', countryId: 'DE', lat: 52.52, lon: 13.405 },
+  { name: 'Rome', countryId: 'IT', lat: 41.9028, lon: 12.4964 },
+  { name: 'Madrid', countryId: 'ES', lat: 40.4168, lon: -3.7038 },
+  { name: 'Lisbon', countryId: 'PT', lat: 38.7223, lon: -9.1393 },
+  { name: 'Stockholm', countryId: 'SE', lat: 59.3293, lon: 18.0686 },
+  { name: 'Athens', countryId: 'GR', lat: 37.9838, lon: 23.7275 },
+  { name: 'Warsaw', countryId: 'PL', lat: 52.2297, lon: 21.0122 },
+  { name: 'Cairo', countryId: 'EG', lat: 30.0444, lon: 31.2357 },
+  { name: 'Nairobi', countryId: 'KE', lat: -1.2921, lon: 36.8219 },
+  { name: 'Lagos', countryId: 'NG', lat: 6.5244, lon: 3.3792 },
+  { name: 'Beijing', countryId: 'CN', lat: 39.9042, lon: 116.4074 },
+  { name: 'Mumbai', countryId: 'IN', lat: 19.076, lon: 72.8777, aliases: ['bombay'] },
+  { name: 'Tokyo', countryId: 'JP', lat: 35.6762, lon: 139.6503 },
+  { name: 'Seoul', countryId: 'KR', lat: 37.5665, lon: 126.978 },
+  { name: 'Moscow', countryId: 'RU', lat: 55.7558, lon: 37.6173 },
+  { name: 'Jakarta', countryId: 'ID', lat: -6.2088, lon: 106.8456 },
+  { name: 'Bangkok', countryId: 'TH', lat: 13.7563, lon: 100.5018 },
+  { name: 'Riyadh', countryId: 'SA', lat: 24.7136, lon: 46.6753 },
+  { name: 'Istanbul', countryId: 'TR', lat: 41.0082, lon: 28.9784 },
+  { name: 'Sydney', countryId: 'AU', lat: -33.8688, lon: 151.2093 },
+  { name: 'Auckland', countryId: 'NZ', lat: -36.8509, lon: 174.7645 },
+];
+
 const SCORE_CORRECT = 10;
+const COUNTRY_ROUND_SIZE = 20;
+const CITY_ROUND_SIZE = 15;
+const MAX_MISSES = 3;
+
+const GAME_MODES = {
+  COUNTRIES: 'countries',
+  CITIES: 'cities',
+};
+
+const CITY_CHALLENGE_MODES = {
+  NAME: 'name',
+  LOCATE: 'locate',
+};
 
 const svgNS = 'http://www.w3.org/2000/svg';
 const svg = document.getElementById('world-map');
@@ -57,15 +104,23 @@ const zoomResetBtn = document.getElementById('zoom-reset-btn');
 
 const scoreEl = document.getElementById('score-value');
 const missesEl = document.getElementById('lives-value');
+const livesLabelEl = document.getElementById('lives-label');
 const progressEl = document.getElementById('question-count');
-const continentNameEl = document.getElementById('continent-name');
+const modeNameEl = document.getElementById('continent-name');
 const countryNameEl = document.getElementById('country-name');
 const guessForm = document.getElementById('guess-form');
 const guessInput = document.getElementById('guess-input');
+const guessLabel = document.getElementById('guess-label');
 const guessBtn = document.getElementById('guess-btn');
+const guessHelpEl = document.getElementById('guess-help');
+const outlineLabelEl = document.getElementById('outline-label');
+const citySubmodeButtons = document.getElementById('city-submode-buttons');
+const cityNameModeBtn = document.getElementById('city-name-mode-btn');
+const cityLocateModeBtn = document.getElementById('city-locate-mode-btn');
 const introModal = document.getElementById('intro-modal');
 const nameInput = document.getElementById('player-name');
-const playBtn = document.getElementById('play-btn');
+const playCountriesBtn = document.getElementById('play-countries-btn');
+const playCitiesBtn = document.getElementById('play-cities-btn');
 const gameOverModal = document.getElementById('game-over-modal');
 const gameoverName = document.getElementById('gameover-name');
 const gameoverScore = document.getElementById('gameover-score');
@@ -81,28 +136,22 @@ const mapData = window.COUNTRY_LOCATOR_MAP;
 const countryById = new Map(COUNTRIES.map((country) => [country.id, country]));
 const mapCountryById = new Map((mapData?.countries ?? []).map((country) => [country.id, country]));
 const countryElements = new Map();
-const countriesByContinent = COUNTRIES.reduce((groups, country) => {
-  if (!groups.has(country.continent)) {
-    groups.set(country.continent, []);
-  }
-
-  groups.get(country.continent).push(country);
-  return groups;
-}, new Map());
 
 let score = 0;
 let wrongCount = 0;
 let correctCount = 0;
 let answeredCount = 0;
-let activeContinent = '';
-let roundCountryIds = [];
+let roundIds = [];
 let roundIndex = 0;
 let revealedCountries = new Set();
 let missedCountries = new Set();
 let gameActive = false;
 let activeCountryId = null;
+let activeCity = null;
 let answerLocked = false;
 let feedbackTimer = null;
+let selectedGameMode = GAME_MODES.COUNTRIES;
+let selectedCityChallengeMode = CITY_CHALLENGE_MODES.NAME;
 let mapScale = 1;
 let mapOffsetX = 0;
 let mapOffsetY = 0;
@@ -114,7 +163,6 @@ let panOriginX = 0;
 let panOriginY = 0;
 let pinchDistance = 0;
 let pinchStartScale = 1;
-
 const activeTouchPoints = new Map();
 
 const MIN_MAP_SCALE = 1;
@@ -122,7 +170,7 @@ const MAX_MAP_SCALE = 3;
 const MAP_SCALE_STEP = 0.35;
 
 function log(message) {
-  console.log('[KnowYourContinents]', message);
+  console.log('[KnowYourGeography]', message);
 }
 
 function shuffle(items) {
@@ -219,8 +267,8 @@ function resetMapZoom() {
 
 function updateScoreboard() {
   scoreEl.textContent = score;
-  missesEl.textContent = wrongCount;
-  progressEl.textContent = `${answeredCount}/${roundCountryIds.length}`;
+  missesEl.textContent = `${wrongCount}/${MAX_MISSES}`;
+  progressEl.textContent = `${answeredCount}/${roundIds.length}`;
 }
 
 function renderMapState() {
@@ -247,7 +295,7 @@ function showFeedback(message, type) {
 
 function buildMap() {
   if (!mapData?.countries?.length) {
-    throw new Error('Know Your Continents map data is missing.');
+    throw new Error('Know Your Geography map data is missing.');
   }
 
   svg.setAttribute('viewBox', `0 0 ${mapData.width} ${mapData.height}`);
@@ -315,19 +363,122 @@ function queueNextStep(callback, delay) {
   }, delay);
 }
 
-function finishGame() {
+function toMapPoint(lat, lon) {
+  return {
+    x: ((lon + 180) / 360) * mapData.width,
+    y: ((90 - lat) / 180) * mapData.height,
+  };
+}
+
+function getMapCoordinatesFromEvent(event) {
+  const rect = svg.getBoundingClientRect();
+  const x = ((event.clientX - rect.left) / rect.width) * mapData.width;
+  const y = ((event.clientY - rect.top) / rect.height) * mapData.height;
+  return { x, y };
+}
+
+function focusMapOnCountry(countryId) {
+  const element = countryElements.get(countryId);
+  if (!element) {
+    resetMapZoom();
+    return;
+  }
+
+  const bounds = element.getBBox();
+  const widthFactor = mapData.width / Math.max(bounds.width, 140);
+  const heightFactor = mapData.height / Math.max(bounds.height, 100);
+  const nextScale = clamp(Math.min(widthFactor, heightFactor) * 0.35, 1.35, MAX_MAP_SCALE);
+
+  mapScale = nextScale;
+
+  const centerX = bounds.x + (bounds.width / 2);
+  const centerY = bounds.y + (bounds.height / 2);
+  const normX = ((centerX / mapData.width) - 0.5) * 2;
+  const normY = ((centerY / mapData.height) - 0.5) * 2;
+  const { maxOffsetX, maxOffsetY } = getMapPanLimits(mapScale);
+
+  mapOffsetX = clamp(-normX * maxOffsetX * 0.92, -maxOffsetX, maxOffsetX);
+  mapOffsetY = clamp(-normY * maxOffsetY * 0.92, -maxOffsetY, maxOffsetY);
+  updateMapTransform();
+}
+
+function setCityChallengeMode(mode) {
+  selectedCityChallengeMode = mode;
+  cityNameModeBtn.classList.toggle('active', mode === CITY_CHALLENGE_MODES.NAME);
+  cityLocateModeBtn.classList.toggle('active', mode === CITY_CHALLENGE_MODES.LOCATE);
+
+  if (!gameActive || selectedGameMode !== GAME_MODES.CITIES || !activeCity) {
+    return;
+  }
+
+  applyModePresentation();
+  if (mode === CITY_CHALLENGE_MODES.NAME) {
+    guessInput.focus();
+  }
+}
+
+function isCorrectGuess(acceptedValues, guess) {
+  return acceptedValues.includes(normalizeAnswer(guess));
+}
+
+function finishGame(reason = '') {
   gameActive = false;
   activeCountryId = null;
+  activeCity = null;
   renderOutline(null);
   renderMapState();
   setGuessEnabled(false);
 
-  gameoverTitle.textContent = `🏁 ${activeContinent} complete`;
-  gameoverName.textContent = `${nameInput.value.trim() || 'Player'} • ${activeContinent}`;
+  let titlePrefix = '🏁 Round complete';
+  if (reason === 'misses') {
+    titlePrefix = '💀 Out of tries';
+  }
+
+  gameoverTitle.textContent = titlePrefix;
+  gameoverName.textContent = `${nameInput.value.trim() || 'Player'} • ${selectedGameMode === GAME_MODES.COUNTRIES ? 'Countries' : 'Cities'}`;
   gameoverScore.textContent = score;
   gameoverErrors.textContent = wrongCount;
   gameoverCorrect.textContent = correctCount;
   gameOverModal.classList.add('visible');
+}
+
+function applyModePresentation() {
+  if (selectedGameMode === GAME_MODES.COUNTRIES) {
+    modeNameEl.textContent = 'Guess Countries';
+    livesLabelEl.textContent = 'Tries';
+    outlineLabelEl.textContent = 'Country outline';
+    guessLabel.textContent = 'Your guess';
+    guessInput.placeholder = 'Type the country name';
+    guessBtn.textContent = 'Submit Guess';
+    guessHelpEl.textContent = 'You have 3 total misses. Survive all 20 outlines to win the round.';
+    citySubmodeButtons.hidden = true;
+    setGuessEnabled(true);
+    return;
+  }
+
+  modeNameEl.textContent = 'Guess Cities';
+  livesLabelEl.textContent = 'Tries';
+  outlineLabelEl.textContent = 'Country focus';
+  citySubmodeButtons.hidden = false;
+
+  if (selectedCityChallengeMode === CITY_CHALLENGE_MODES.NAME) {
+    guessLabel.textContent = 'City name';
+    guessInput.placeholder = 'Type the city name';
+    guessBtn.textContent = 'Submit City';
+    guessHelpEl.textContent = 'A country is highlighted and zoomed in. Name the city in that country.';
+    setGuessEnabled(true);
+    return;
+  }
+
+  guessLabel.textContent = 'Locate city';
+  guessInput.placeholder = 'Tap on the map to answer';
+  guessBtn.textContent = 'Tap Map to Guess';
+  guessHelpEl.textContent = 'Tap where you think the shown city is located in the highlighted country.';
+  setGuessEnabled(false);
+}
+
+function getCityPool() {
+  return CITIES.filter((city) => countryById.has(city.countryId) && mapCountryById.has(city.countryId));
 }
 
 function nextQuestion() {
@@ -335,58 +486,64 @@ function nextQuestion() {
     return;
   }
 
-  if (roundIndex >= roundCountryIds.length) {
+  if (wrongCount >= MAX_MISSES) {
+    finishGame('misses');
+    return;
+  }
+
+  if (roundIndex >= roundIds.length) {
     finishGame();
     return;
   }
 
-  activeCountryId = roundCountryIds[roundIndex];
+  const nextRoundItem = roundIds[roundIndex];
   roundIndex += 1;
 
-  renderOutline(activeCountryId);
-  renderMapState();
-  countryNameEl.textContent = 'Name the country shown by the outline.';
-  guessInput.value = '';
-  setGuessEnabled(true);
-  guessInput.focus();
-
-  const country = countryById.get(activeCountryId);
-  log(`Guess ${country?.name ?? activeCountryId} in ${activeContinent}`);
-}
-
-function isCorrectGuess(country, guess) {
-  const acceptedAnswers = [country.name, ...(country.aliases ?? [])].map(normalizeAnswer);
-  return acceptedAnswers.includes(normalizeAnswer(guess));
-}
-
-function handleGuessSubmit(event) {
-  event.preventDefault();
-
-  if (!gameActive || answerLocked) {
-    return;
-  }
-
-  const guess = guessInput.value.trim();
-  if (!guess) {
-    showFeedback('Type a country name first.', 'wrong');
+  if (selectedGameMode === GAME_MODES.COUNTRIES) {
+    activeCountryId = nextRoundItem;
+    activeCity = null;
+    renderOutline(activeCountryId);
+    resetMapZoom();
+    countryNameEl.textContent = 'Name the country shown by the outline.';
+    guessInput.value = '';
+    applyModePresentation();
+    renderMapState();
+    updateScoreboard();
     guessInput.focus();
     return;
   }
 
+  activeCity = nextRoundItem;
+  activeCountryId = activeCity.countryId;
+  renderOutline(activeCountryId);
+  focusMapOnCountry(activeCountryId);
+  countryNameEl.textContent = `City target: ${activeCity.name}`;
+  guessInput.value = '';
+  applyModePresentation();
+  renderMapState();
+  updateScoreboard();
+
+  if (selectedCityChallengeMode === CITY_CHALLENGE_MODES.NAME) {
+    guessInput.focus();
+  }
+}
+
+function handleCountryGuess(guess) {
   const targetCountry = countryById.get(activeCountryId);
   if (!targetCountry) {
     return;
   }
 
   answeredCount += 1;
+  const acceptedAnswers = [targetCountry.name, ...(targetCountry.aliases ?? [])].map(normalizeAnswer);
 
-  if (isCorrectGuess(targetCountry, guess)) {
+  if (isCorrectGuess(acceptedAnswers, guess)) {
     score += SCORE_CORRECT;
     correctCount += 1;
     revealedCountries.add(targetCountry.id);
     updateScoreboard();
     renderMapState();
-    showFeedback(`Correct. ${targetCountry.name} is now revealed on the map.`, 'correct');
+    showFeedback(`Correct. ${targetCountry.name} is revealed on the map.`, 'correct');
     queueNextStep(nextQuestion, 900);
     return;
   }
@@ -399,60 +556,194 @@ function handleGuessSubmit(event) {
   queueNextStep(nextQuestion, 1100);
 }
 
-function pickRandomContinent() {
-  return shuffle([...countriesByContinent.keys()])[0];
+function handleCityNameGuess(guess) {
+  if (!activeCity) {
+    return;
+  }
+
+  answeredCount += 1;
+  const acceptedAnswers = [activeCity.name, ...(activeCity.aliases ?? [])].map(normalizeAnswer);
+
+  if (isCorrectGuess(acceptedAnswers, guess)) {
+    score += SCORE_CORRECT;
+    correctCount += 1;
+    revealedCountries.add(activeCity.countryId);
+    updateScoreboard();
+    renderMapState();
+    showFeedback(`Correct. ${activeCity.name} is in ${countryById.get(activeCity.countryId)?.name ?? 'that country'}.`, 'correct');
+    queueNextStep(nextQuestion, 900);
+    return;
+  }
+
+  wrongCount += 1;
+  missedCountries.add(activeCity.countryId);
+  updateScoreboard();
+  renderMapState();
+  showFeedback(`Missed. The city was ${activeCity.name}.`, 'wrong');
+  queueNextStep(nextQuestion, 1100);
 }
 
-function startGame(continent = pickRandomContinent()) {
-  activeContinent = typeof continent === 'string' ? continent : pickRandomContinent();
-  roundCountryIds = shuffle(countriesByContinent.get(activeContinent).map((country) => country.id));
-  roundIndex = 0;
+function handleCityLocateGuess(event) {
+  if (
+    !gameActive ||
+    answerLocked ||
+    selectedGameMode !== GAME_MODES.CITIES ||
+    selectedCityChallengeMode !== CITY_CHALLENGE_MODES.LOCATE ||
+    !activeCity
+  ) {
+    return;
+  }
+
+  const pointer = getMapCoordinatesFromEvent(event);
+  const target = toMapPoint(activeCity.lat, activeCity.lon);
+  const countryElement = countryElements.get(activeCity.countryId);
+  const bounds = countryElement ? countryElement.getBBox() : { width: 120, height: 120 };
+  const hitRadius = clamp(Math.max(bounds.width, bounds.height) * 0.12, 18, 52);
+  const distance = Math.hypot(pointer.x - target.x, pointer.y - target.y);
+
+  answeredCount += 1;
+
+  if (distance <= hitRadius) {
+    score += SCORE_CORRECT;
+    correctCount += 1;
+    revealedCountries.add(activeCity.countryId);
+    updateScoreboard();
+    renderMapState();
+    showFeedback(`Nice locate. ${activeCity.name} is correct.`, 'correct');
+    queueNextStep(nextQuestion, 900);
+    return;
+  }
+
+  wrongCount += 1;
+  missedCountries.add(activeCity.countryId);
+  updateScoreboard();
+  renderMapState();
+  showFeedback(`Not quite. ${activeCity.name} was elsewhere in the country.`, 'wrong');
+  queueNextStep(nextQuestion, 1100);
+}
+
+function handleGuessSubmit(event) {
+  event.preventDefault();
+
+  if (!gameActive || answerLocked) {
+    return;
+  }
+
+  if (selectedGameMode === GAME_MODES.CITIES && selectedCityChallengeMode === CITY_CHALLENGE_MODES.LOCATE) {
+    showFeedback('Use the map tap to locate the city.', 'wrong');
+    return;
+  }
+
+  const guess = guessInput.value.trim();
+  if (!guess) {
+    showFeedback('Type your guess first.', 'wrong');
+    guessInput.focus();
+    return;
+  }
+
+  if (selectedGameMode === GAME_MODES.COUNTRIES) {
+    handleCountryGuess(guess);
+    return;
+  }
+
+  handleCityNameGuess(guess);
+}
+
+function startGame(mode) {
+  selectedGameMode = mode;
   score = 0;
   wrongCount = 0;
   correctCount = 0;
   answeredCount = 0;
   revealedCountries = new Set();
   missedCountries = new Set();
-  gameActive = true;
+  roundIndex = 0;
   activeCountryId = null;
+  activeCity = null;
   answerLocked = false;
+  gameActive = true;
 
-  continentNameEl.textContent = activeContinent;
-  countryNameEl.textContent = 'Get ready for the first outline.';
+  if (mode === GAME_MODES.COUNTRIES) {
+    const countryIds = COUNTRIES
+      .map((country) => country.id)
+      .filter((countryId) => mapCountryById.has(countryId));
+    roundIds = shuffle(countryIds).slice(0, COUNTRY_ROUND_SIZE);
+    selectedCityChallengeMode = CITY_CHALLENGE_MODES.NAME;
+  } else {
+    roundIds = shuffle(getCityPool()).slice(0, CITY_ROUND_SIZE);
+  }
+
+  resetMapZoom();
   updateScoreboard();
   renderMapState();
   renderOutline(null);
-  gameOverModal.classList.remove('visible');
   introModal.classList.add('hidden');
+  gameOverModal.classList.remove('visible');
+  countryNameEl.textContent = 'Get ready for your first challenge.';
+  applyModePresentation();
 
-  window.setTimeout(nextQuestion, 250);
+  window.setTimeout(nextQuestion, 220);
 }
 
-playBtn.addEventListener('click', startGame);
+function openIntroModal() {
+  introModal.classList.remove('hidden');
+  gameOverModal.classList.remove('visible');
+  gameActive = false;
+  resetMapZoom();
+  renderOutline(null);
+  activeCountryId = null;
+  activeCity = null;
+  renderMapState();
+  modeNameEl.textContent = 'Choose at start';
+  countryNameEl.textContent = 'Choose a mode to begin.';
+  progressEl.textContent = '0/0';
+  scoreEl.textContent = '0';
+  missesEl.textContent = `0/${MAX_MISSES}`;
+}
+
+playCountriesBtn.addEventListener('click', () => startGame(GAME_MODES.COUNTRIES));
+playCitiesBtn.addEventListener('click', () => startGame(GAME_MODES.CITIES));
+
 nameInput.addEventListener('keydown', (event) => {
   if (event.key === 'Enter') {
-    playBtn.click();
+    playCountriesBtn.click();
   }
 });
+
 guessForm.addEventListener('submit', handleGuessSubmit);
+
+cityNameModeBtn.addEventListener('click', () => {
+  setCityChallengeMode(CITY_CHALLENGE_MODES.NAME);
+});
+
+cityLocateModeBtn.addEventListener('click', () => {
+  setCityChallengeMode(CITY_CHALLENGE_MODES.LOCATE);
+});
+
 replayRoundBtn.addEventListener('click', () => {
   gameOverModal.classList.remove('visible');
-  startGame(activeContinent || pickRandomContinent());
+  startGame(selectedGameMode);
 });
+
 playAgainBtn.addEventListener('click', () => {
-  gameOverModal.classList.remove('visible');
-  startGame();
+  openIntroModal();
 });
+
 backHomeBtn.addEventListener('click', () => {
   window.location.href = '../../index.html';
 });
+
 zoomInBtn.addEventListener('click', () => {
   adjustMapZoom(MAP_SCALE_STEP);
 });
+
 zoomOutBtn.addEventListener('click', () => {
   adjustMapZoom(-MAP_SCALE_STEP);
 });
+
 zoomResetBtn.addEventListener('click', resetMapZoom);
+
+mapStage.addEventListener('click', handleCityLocateGuess);
 
 mapStage.addEventListener('pointerdown', (event) => {
   if (event.pointerType === 'mouse') {
@@ -541,10 +832,13 @@ function init() {
     renderMapState();
     renderOutline(null);
     setGuessEnabled(false);
-    continentNameEl.textContent = 'Random at start';
-    countryNameEl.textContent = 'Press Start to get your first outline.';
+    citySubmodeButtons.hidden = true;
+    modeNameEl.textContent = 'Choose at start';
+    countryNameEl.textContent = 'Choose a mode to begin.';
     progressEl.textContent = '0/0';
-    log('Know Your Continents loaded with continent-based reveal mode.');
+    livesLabelEl.textContent = 'Tries';
+    missesEl.textContent = `0/${MAX_MISSES}`;
+    log('Know Your Geography loaded with countries and cities modes.');
   } catch (error) {
     console.error(error);
     countryNameEl.textContent = 'Map data failed to load';

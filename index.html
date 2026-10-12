@@ -21,7 +21,19 @@
   </header>
 
   <main>
-    <div class="game-board" role="list">
+    <section class="game-category" aria-labelledby="language-heading">
+      <div class="category-header">
+        <h2 id="language-heading" class="category-heading">Language</h2>
+        <div class="carousel-controls" hidden>
+          <button class="carousel-btn" type="button" data-direction="-1" aria-label="Previous Language apps" aria-controls="language-apps" title="Previous Language apps">
+            <img src="icons/chevron-left.svg" alt="" width="20" height="20" />
+          </button>
+          <button class="carousel-btn" type="button" data-direction="1" aria-label="Next Language apps" aria-controls="language-apps" title="Next Language apps">
+            <img src="icons/chevron-right.svg" alt="" width="20" height="20" />
+          </button>
+        </div>
+      </div>
+      <div id="language-apps" class="game-board" role="list" aria-labelledby="language-heading" tabindex="0">
 
       <!-- Game 1: Alphabet Learning Game -->
       <a class="game-card" href="games/alphabet/index.html" role="listitem" aria-label="Play Alphabet Quest">
@@ -30,21 +42,8 @@
           <span class="preview-label">Alphabet Quest</span>
         </div>
         <div class="card-body">
-          <h2>Alphabet Quest</h2>
+          <h3>Alphabet Quest</h3>
           <p>Scrambled letters, race against yourself! Put the alphabet back in order as fast as you can.</p>
-          <button class="play-btn" tabindex="-1" aria-hidden="true">Play</button>
-        </div>
-      </a>
-
-      <!-- Game 2: Know Your Continents -->
-      <a class="game-card" href="games/country-locator/index.html" role="listitem" aria-label="Play Know Your Continents">
-        <div class="card-preview" aria-hidden="true">
-          🌍
-          <span class="preview-label">Know Your Continents</span>
-        </div>
-        <div class="card-body">
-          <h2>Know Your Continents</h2>
-          <p>Start with a random continent, guess countries from their outlines, and reveal each correct answer on the world map.</p>
           <button class="play-btn" tabindex="-1" aria-hidden="true">Play</button>
         </div>
       </a>
@@ -55,11 +54,39 @@
           🧩
         </div>
         <div class="card-body">
-          <h2>Game 3</h2>
+          <h3>Game 3</h3>
           <p>Stay tuned – something new is on the way!</p>
           <button class="play-btn" tabindex="-1" disabled aria-hidden="true">Coming Soon</button>
         </div>
       </div>
+
+      </div>
+    </section>
+
+    <section class="game-category" aria-labelledby="geography-heading">
+      <div class="category-header">
+        <h2 id="geography-heading" class="category-heading">Geography</h2>
+        <div class="carousel-controls" hidden>
+          <button class="carousel-btn" type="button" data-direction="-1" aria-label="Previous Geography apps" aria-controls="geography-apps" title="Previous Geography apps">
+            <img src="icons/chevron-left.svg" alt="" width="20" height="20" />
+          </button>
+          <button class="carousel-btn" type="button" data-direction="1" aria-label="Next Geography apps" aria-controls="geography-apps" title="Next Geography apps">
+            <img src="icons/chevron-right.svg" alt="" width="20" height="20" />
+          </button>
+        </div>
+      </div>
+      <div id="geography-apps" class="game-board" role="list" aria-labelledby="geography-heading" tabindex="0">
+      <a class="game-card" href="games/country-locator/index.html" role="listitem" aria-label="Play Know Your Geography">
+        <div class="card-preview" aria-hidden="true">
+          🌍
+          <span class="preview-label">Know Your Geography</span>
+        </div>
+        <div class="card-body">
+          <h3>Know Your Geography?</h3>
+          <p>Pick countries or cities mode, then test your map skills with outlines, city names, and location challenges.</p>
+          <button class="play-btn" tabindex="-1" aria-hidden="true">Play</button>
+        </div>
+      </a>
 
       <!-- Game 4: Coming Soon -->
       <div class="game-card coming-soon" role="listitem" aria-label="Game 4 – Coming Soon">
@@ -67,13 +94,14 @@
           🌟
         </div>
         <div class="card-body">
-          <h2>Game 4</h2>
+          <h3>Game 4</h3>
           <p>Stay tuned – something new is on the way!</p>
           <button class="play-btn" tabindex="-1" disabled aria-hidden="true">Coming Soon</button>
         </div>
       </div>
 
-    </div>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -81,6 +109,44 @@
   </footer>
 
   <script>
+    document.querySelectorAll('.game-category').forEach((category) => {
+      const board = category.querySelector('.game-board');
+      const controls = category.querySelector('.carousel-controls');
+      const previous = controls.querySelector('[data-direction="-1"]');
+      const next = controls.querySelector('[data-direction="1"]');
+      const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+
+      const updateControls = () => {
+        previous.disabled = board.scrollLeft <= 1;
+        next.disabled = board.scrollLeft >= board.scrollWidth - board.clientWidth - 1;
+      };
+
+      const scrollCards = (direction) => {
+        const card = board.querySelector('.game-card');
+        const gap = parseFloat(getComputedStyle(board).columnGap) || 0;
+        board.scrollBy({
+          left: direction * (card.getBoundingClientRect().width + gap),
+          behavior: reducedMotion.matches ? 'instant' : 'smooth'
+        });
+      };
+
+      controls.addEventListener('click', (event) => {
+        const button = event.target.closest('[data-direction]');
+        if (button) scrollCards(Number(button.dataset.direction));
+      });
+      board.addEventListener('keydown', (event) => {
+        if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+          event.preventDefault();
+          scrollCards(event.key === 'ArrowLeft' ? -1 : 1);
+        }
+      });
+      board.addEventListener('scroll', updateControls, { passive: true });
+      new ResizeObserver(updateControls).observe(board);
+      controls.hidden = false;
+      updateControls();
+    });
+
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js');
     }
