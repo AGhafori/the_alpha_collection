@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="prs" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>دری را یاد بگیریم — Workbook</title>
+<link rel="stylesheet" href="../../assets/print-base.css">
+<style>
+
+@page { margin: 0.4in; }
+.sheet {
+  page-break-after: always;
+  padding: 0 0.15in;
+}
+.sheet:last-child { page-break-after: avoid; }
+
+.sheet-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 3px solid var(--ac-accent);
+  padding-bottom: 8px;
+  margin-bottom: 18px;
+}
+.sheet-head .brand {
+  font-family: 'Alpha Display', sans-serif;
+  font-weight: 700;
+  font-size: 13pt;
+  color: var(--ac-accent-dark);
+}
+.sheet-head .counter {
+  font-size: 10pt;
+  color: var(--ac-mid);
+  direction: ltr;
+}
+
+.letter-banner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: var(--ac-cream);
+  border: 2px solid var(--ac-green);
+  border-radius: 18px;
+  padding: 14px 28px;
+  margin-bottom: 26px;
+}
+.letter-banner .big-letter {
+  font-family: 'Alpha Letter', serif;
+  font-size: 64pt;
+  line-height: 1;
+  color: var(--ac-accent-dark);
+}
+.letter-banner .letter-meta .letter-name {
+  font-size: 18pt;
+  font-weight: 700;
+  direction: ltr;
+  text-align: right;
+}
+.letter-banner .letter-meta .letter-latin {
+  font-size: 11pt;
+  color: var(--ac-mid);
+  direction: ltr;
+  text-align: right;
+  margin-top: 2px;
+}
+
+.section-label {
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--ac-accent-dark);
+  margin: 0 0 8px 0;
+}
+
+.trace-row, .write-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  border-bottom: 2px dashed var(--ac-line);
+  padding-bottom: 4px;
+  margin-bottom: 16px;
+}
+.trace-row span, .write-row span {
+  flex: 1;
+  text-align: center;
+  font-family: 'Alpha Letter', serif;
+  font-size: 36pt;
+  line-height: 1.1;
+}
+.trace-row .tr-model { color: var(--ac-accent-dark); }
+.trace-row .tr-ghost { color: var(--ac-trace); }
+.write-row span { color: var(--ac-trace); min-height: 40pt; }
+
+.word-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: var(--ac-green);
+  border-radius: 18px;
+  padding: 14px 28px;
+  margin-top: 8px;
+}
+.word-card .word-emoji { font-size: 34pt; }
+.word-card .word-fa {
+  font-family: 'Alpha Letter', serif;
+  font-size: 24pt;
+  color: var(--ac-dark);
+}
+.word-card .word-translit {
+  font-size: 10pt;
+  color: var(--ac-dark);
+  direction: ltr;
+  text-align: right;
+  margin-top: 3px;
+}
+
+.cover {
+  position: relative;
+  min-height: 10.3in;
+  page-break-after: always;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background: var(--ac-green);
+  border-radius: 24px;
+  padding: 0 0.6in;
+}
+.cover .emoji { font-size: 64pt; }
+.cover h1 {
+  font-family: 'Alpha Display', sans-serif;
+  font-size: 34pt;
+  margin: 10px 0 0 0;
+  color: var(--ac-dark);
+}
+.cover h2 {
+  font-size: 16pt;
+  font-weight: 400;
+  direction: ltr;
+  color: var(--ac-mid);
+  margin: 6px 0 24px 0;
+}
+.cover .tagline {
+  font-size: 11pt;
+  color: var(--ac-dark);
+  margin: 0 auto;
+  max-width: 5in;
+  direction: ltr;
+}
+.cover .sample-row {
+  direction: rtl;
+  font-family: 'Alpha Letter', serif;
+  font-size: 30pt;
+  color: var(--ac-accent-dark);
+  margin-top: 20px;
+  letter-spacing: 10px;
+}
+
+.poster { page-break-after: avoid; }
+
+.poster {
+  min-height: 10.3in;
+  display: flex;
+  flex-direction: column;
+  padding: 0 0.15in;
+}
+.poster-head {
+  text-align: center;
+  margin-bottom: 18px;
+}
+.poster-head h1 {
+  font-family: 'Alpha Display', sans-serif;
+  font-size: 30pt;
+  color: var(--ac-accent-dark);
+  margin: 0;
+}
+.poster-head h2 {
+  font-size: 13pt;
+  font-weight: 400;
+  direction: ltr;
+  color: var(--ac-mid);
+  margin: 4px 0 0 0;
+}
+.poster-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.12in;
+  width: 100%;
+}
+.poster-cell {
+  background: var(--ac-cream);
+  border: 2px solid var(--ac-green);
+  border-radius: 12px;
+  text-align: center;
+  padding: 8px 2px;
+}
+.poster-cell .letter {
+  font-family: 'Alpha Letter', serif;
+  font-size: 26pt;
+  color: var(--ac-accent-dark);
+  line-height: 1;
+}
+.poster-cell .emoji { font-size: 13pt; }
+.poster-cell .word {
+  font-size: 7pt;
+  color: var(--ac-dark);
+}
+
+</style>
+</head>
+<body>
+
+    <section class="cover">
+      <div class="emoji">🔤</div>
+      <h1>دری را یاد بگیریم</h1>
+      <h2>Let's Learn Dari</h2>
+      <p class="tagline">A complete Dari alphabet workbook — 33 letter tracing pages, one per letter, plus a bonus alphabet poster at the end.</p>
+      <div class="sample-row">آ ا ب پ ت ث ج چ</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">1 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">آ</div>
+        <div class="letter-meta">
+          <div class="letter-name">Alef Madd</div>
+          <div class="letter-latin">sounds like "aa"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">آ</span><span class="tr-ghost">آ</span><span class="tr-ghost">آ</span><span class="tr-ghost">آ</span><span class="tr-ghost">آ</span><span class="tr-ghost">آ</span><span class="tr-ghost">آ</span></div>
+      <div class="trace-row"><span class="tr-model">آ</span><span class="tr-ghost">آ</span><span class="tr-ghost">آ</span><span class="tr-ghost">آ</span><span class="tr-ghost">آ</span><span class="tr-ghost">آ</span><span class="tr-ghost">آ</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">💧</div>
+        <div>
+          <div class="word-fa">آب</div>
+          <div class="word-translit">aab &middot; water</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">2 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">ا</div>
+        <div class="letter-meta">
+          <div class="letter-name">Alef</div>
+          <div class="letter-latin">sounds like "a"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">ا</span><span class="tr-ghost">ا</span><span class="tr-ghost">ا</span><span class="tr-ghost">ا</span><span class="tr-ghost">ا</span><span class="tr-ghost">ا</span><span class="tr-ghost">ا</span></div>
+      <div class="trace-row"><span class="tr-model">ا</span><span class="tr-ghost">ا</span><span class="tr-ghost">ا</span><span class="tr-ghost">ا</span><span class="tr-ghost">ا</span><span class="tr-ghost">ا</span><span class="tr-ghost">ا</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🐴</div>
+        <div>
+          <div class="word-fa">اسب</div>
+          <div class="word-translit">asb &middot; horse</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">3 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">ب</div>
+        <div class="letter-meta">
+          <div class="letter-name">Be</div>
+          <div class="letter-latin">sounds like "b"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">ب</span><span class="tr-ghost">ب</span><span class="tr-ghost">ب</span><span class="tr-ghost">ب</span><span class="tr-ghost">ب</span><span class="tr-ghost">ب</span><span class="tr-ghost">ب</span></div>
+      <div class="trace-row"><span class="tr-model">ب</span><span class="tr-ghost">ب</span><span class="tr-ghost">ب</span><span class="tr-ghost">ب</span><span class="tr-ghost">ب</span><span class="tr-ghost">ب</span><span class="tr-ghost">ب</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🍦</div>
+        <div>
+          <div class="word-fa">بستنی</div>
+          <div class="word-translit">bastani &middot; ice cream</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">4 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">پ</div>
+        <div class="letter-meta">
+          <div class="letter-name">Pe</div>
+          <div class="letter-latin">sounds like "p"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">پ</span><span class="tr-ghost">پ</span><span class="tr-ghost">پ</span><span class="tr-ghost">پ</span><span class="tr-ghost">پ</span><span class="tr-ghost">پ</span><span class="tr-ghost">پ</span></div>
+      <div class="trace-row"><span class="tr-model">پ</span><span class="tr-ghost">پ</span><span class="tr-ghost">پ</span><span class="tr-ghost">پ</span><span class="tr-ghost">پ</span><span class="tr-ghost">پ</span><span class="tr-ghost">پ</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🦋</div>
+        <div>
+          <div class="word-fa">پروانه</div>
+          <div class="word-translit">parvaneh &middot; butterfly</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">5 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">ت</div>
+        <div class="letter-meta">
+          <div class="letter-name">Te</div>
+          <div class="letter-latin">sounds like "t"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">ت</span><span class="tr-ghost">ت</span><span class="tr-ghost">ت</span><span class="tr-ghost">ت</span><span class="tr-ghost">ت</span><span class="tr-ghost">ت</span><span class="tr-ghost">ت</span></div>
+      <div class="trace-row"><span class="tr-model">ت</span><span class="tr-ghost">ت</span><span class="tr-ghost">ت</span><span class="tr-ghost">ت</span><span class="tr-ghost">ت</span><span class="tr-ghost">ت</span><span class="tr-ghost">ت</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">⚽</div>
+        <div>
+          <div class="word-fa">توپ</div>
+          <div class="word-translit">tup &middot; ball</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">6 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">ث</div>
+        <div class="letter-meta">
+          <div class="letter-name">Se</div>
+          <div class="letter-latin">sounds like "s"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">ث</span><span class="tr-ghost">ث</span><span class="tr-ghost">ث</span><span class="tr-ghost">ث</span><span class="tr-ghost">ث</span><span class="tr-ghost">ث</span><span class="tr-ghost">ث</span></div>
+      <div class="trace-row"><span class="tr-model">ث</span><span class="tr-ghost">ث</span><span class="tr-ghost">ث</span><span class="tr-ghost">ث</span><span class="tr-ghost">ث</span><span class="tr-ghost">ث</span><span class="tr-ghost">ث</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">💰</div>
+        <div>
+          <div class="word-fa">ثروت</div>
+          <div class="word-translit">servat &middot; wealth</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">7 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">ج</div>
+        <div class="letter-meta">
+          <div class="letter-name">Jim</div>
+          <div class="letter-latin">sounds like "j"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">ج</span><span class="tr-ghost">ج</span><span class="tr-ghost">ج</span><span class="tr-ghost">ج</span><span class="tr-ghost">ج</span><span class="tr-ghost">ج</span><span class="tr-ghost">ج</span></div>
+      <div class="trace-row"><span class="tr-model">ج</span><span class="tr-ghost">ج</span><span class="tr-ghost">ج</span><span class="tr-ghost">ج</span><span class="tr-ghost">ج</span><span class="tr-ghost">ج</span><span class="tr-ghost">ج</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🐥</div>
+        <div>
+          <div class="word-fa">جوجه</div>
+          <div class="word-translit">joujeh &middot; chick</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">8 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">چ</div>
+        <div class="letter-meta">
+          <div class="letter-name">Che</div>
+          <div class="letter-latin">sounds like "ch"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">چ</span><span class="tr-ghost">چ</span><span class="tr-ghost">چ</span><span class="tr-ghost">چ</span><span class="tr-ghost">چ</span><span class="tr-ghost">چ</span><span class="tr-ghost">چ</span></div>
+      <div class="trace-row"><span class="tr-model">چ</span><span class="tr-ghost">چ</span><span class="tr-ghost">چ</span><span class="tr-ghost">چ</span><span class="tr-ghost">چ</span><span class="tr-ghost">چ</span><span class="tr-ghost">چ</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">☂️</div>
+        <div>
+          <div class="word-fa">چتر</div>
+          <div class="word-translit">chatr &middot; umbrella</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">9 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">ح</div>
+        <div class="letter-meta">
+          <div class="letter-name">Hee</div>
+          <div class="letter-latin">sounds like "h"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">ح</span><span class="tr-ghost">ح</span><span class="tr-ghost">ح</span><span class="tr-ghost">ح</span><span class="tr-ghost">ح</span><span class="tr-ghost">ح</span><span class="tr-ghost">ح</span></div>
+      <div class="trace-row"><span class="tr-model">ح</span><span class="tr-ghost">ح</span><span class="tr-ghost">ح</span><span class="tr-ghost">ح</span><span class="tr-ghost">ح</span><span class="tr-ghost">ح</span><span class="tr-ghost">ح</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🐌</div>
+        <div>
+          <div class="word-fa">حلزون</div>
+          <div class="word-translit">halazoon &middot; snail</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">10 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">خ</div>
+        <div class="letter-meta">
+          <div class="letter-name">Khe</div>
+          <div class="letter-latin">sounds like "kh"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">خ</span><span class="tr-ghost">خ</span><span class="tr-ghost">خ</span><span class="tr-ghost">خ</span><span class="tr-ghost">خ</span><span class="tr-ghost">خ</span><span class="tr-ghost">خ</span></div>
+      <div class="trace-row"><span class="tr-model">خ</span><span class="tr-ghost">خ</span><span class="tr-ghost">خ</span><span class="tr-ghost">خ</span><span class="tr-ghost">خ</span><span class="tr-ghost">خ</span><span class="tr-ghost">خ</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🐻</div>
+        <div>
+          <div class="word-fa">خرس</div>
+          <div class="word-translit">khers &middot; bear</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">11 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">د</div>
+        <div class="letter-meta">
+          <div class="letter-name">Dâl</div>
+          <div class="letter-latin">sounds like "d"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">د</span><span class="tr-ghost">د</span><span class="tr-ghost">د</span><span class="tr-ghost">د</span><span class="tr-ghost">د</span><span class="tr-ghost">د</span><span class="tr-ghost">د</span></div>
+      <div class="trace-row"><span class="tr-model">د</span><span class="tr-ghost">د</span><span class="tr-ghost">د</span><span class="tr-ghost">د</span><span class="tr-ghost">د</span><span class="tr-ghost">د</span><span class="tr-ghost">د</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🌳</div>
+        <div>
+          <div class="word-fa">درخت</div>
+          <div class="word-translit">derakht &middot; tree</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">12 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">ذ</div>
+        <div class="letter-meta">
+          <div class="letter-name">Zâl</div>
+          <div class="letter-latin">sounds like "z"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">ذ</span><span class="tr-ghost">ذ</span><span class="tr-ghost">ذ</span><span class="tr-ghost">ذ</span><span class="tr-ghost">ذ</span><span class="tr-ghost">ذ</span><span class="tr-ghost">ذ</span></div>
+      <div class="trace-row"><span class="tr-model">ذ</span><span class="tr-ghost">ذ</span><span class="tr-ghost">ذ</span><span class="tr-ghost">ذ</span><span class="tr-ghost">ذ</span><span class="tr-ghost">ذ</span><span class="tr-ghost">ذ</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🌽</div>
+        <div>
+          <div class="word-fa">ذرت</div>
+          <div class="word-translit">zorat &middot; corn</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">13 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">ر</div>
+        <div class="letter-meta">
+          <div class="letter-name">Re</div>
+          <div class="letter-latin">sounds like "r"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">ر</span><span class="tr-ghost">ر</span><span class="tr-ghost">ر</span><span class="tr-ghost">ر</span><span class="tr-ghost">ر</span><span class="tr-ghost">ر</span><span class="tr-ghost">ر</span></div>
+      <div class="trace-row"><span class="tr-model">ر</span><span class="tr-ghost">ر</span><span class="tr-ghost">ر</span><span class="tr-ghost">ر</span><span class="tr-ghost">ر</span><span class="tr-ghost">ر</span><span class="tr-ghost">ر</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🦊</div>
+        <div>
+          <div class="word-fa">روباه</div>
+          <div class="word-translit">roobah &middot; fox</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">14 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">ز</div>
+        <div class="letter-meta">
+          <div class="letter-name">Ze</div>
+          <div class="letter-latin">sounds like "z"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">ز</span><span class="tr-ghost">ز</span><span class="tr-ghost">ز</span><span class="tr-ghost">ز</span><span class="tr-ghost">ز</span><span class="tr-ghost">ز</span><span class="tr-ghost">ز</span></div>
+      <div class="trace-row"><span class="tr-model">ز</span><span class="tr-ghost">ز</span><span class="tr-ghost">ز</span><span class="tr-ghost">ز</span><span class="tr-ghost">ز</span><span class="tr-ghost">ز</span><span class="tr-ghost">ز</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🦒</div>
+        <div>
+          <div class="word-fa">زرافه</div>
+          <div class="word-translit">zarafeh &middot; giraffe</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">15 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">ژ</div>
+        <div class="letter-meta">
+          <div class="letter-name">Zhe</div>
+          <div class="letter-latin">sounds like "zh"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">ژ</span><span class="tr-ghost">ژ</span><span class="tr-ghost">ژ</span><span class="tr-ghost">ژ</span><span class="tr-ghost">ژ</span><span class="tr-ghost">ژ</span><span class="tr-ghost">ژ</span></div>
+      <div class="trace-row"><span class="tr-model">ژ</span><span class="tr-ghost">ژ</span><span class="tr-ghost">ژ</span><span class="tr-ghost">ژ</span><span class="tr-ghost">ژ</span><span class="tr-ghost">ژ</span><span class="tr-ghost">ژ</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🍮</div>
+        <div>
+          <div class="word-fa">ژله</div>
+          <div class="word-translit">zheleh &middot; jelly</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">16 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">س</div>
+        <div class="letter-meta">
+          <div class="letter-name">Sin</div>
+          <div class="letter-latin">sounds like "s"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">س</span><span class="tr-ghost">س</span><span class="tr-ghost">س</span><span class="tr-ghost">س</span><span class="tr-ghost">س</span><span class="tr-ghost">س</span><span class="tr-ghost">س</span></div>
+      <div class="trace-row"><span class="tr-model">س</span><span class="tr-ghost">س</span><span class="tr-ghost">س</span><span class="tr-ghost">س</span><span class="tr-ghost">س</span><span class="tr-ghost">س</span><span class="tr-ghost">س</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🍎</div>
+        <div>
+          <div class="word-fa">سیب</div>
+          <div class="word-translit">sib &middot; apple</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">17 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">ش</div>
+        <div class="letter-meta">
+          <div class="letter-name">Shin</div>
+          <div class="letter-latin">sounds like "sh"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">ش</span><span class="tr-ghost">ش</span><span class="tr-ghost">ش</span><span class="tr-ghost">ش</span><span class="tr-ghost">ش</span><span class="tr-ghost">ش</span><span class="tr-ghost">ش</span></div>
+      <div class="trace-row"><span class="tr-model">ش</span><span class="tr-ghost">ش</span><span class="tr-ghost">ش</span><span class="tr-ghost">ش</span><span class="tr-ghost">ش</span><span class="tr-ghost">ش</span><span class="tr-ghost">ش</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🦁</div>
+        <div>
+          <div class="word-fa">شیر</div>
+          <div class="word-translit">shir &middot; lion</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">18 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">ص</div>
+        <div class="letter-meta">
+          <div class="letter-name">Swâd</div>
+          <div class="letter-latin">sounds like "s"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">ص</span><span class="tr-ghost">ص</span><span class="tr-ghost">ص</span><span class="tr-ghost">ص</span><span class="tr-ghost">ص</span><span class="tr-ghost">ص</span><span class="tr-ghost">ص</span></div>
+      <div class="trace-row"><span class="tr-model">ص</span><span class="tr-ghost">ص</span><span class="tr-ghost">ص</span><span class="tr-ghost">ص</span><span class="tr-ghost">ص</span><span class="tr-ghost">ص</span><span class="tr-ghost">ص</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🪑</div>
+        <div>
+          <div class="word-fa">صندلی</div>
+          <div class="word-translit">sandali &middot; chair</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">19 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">ض</div>
+        <div class="letter-meta">
+          <div class="letter-name">Dwâd</div>
+          <div class="letter-latin">sounds like "z"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">ض</span><span class="tr-ghost">ض</span><span class="tr-ghost">ض</span><span class="tr-ghost">ض</span><span class="tr-ghost">ض</span><span class="tr-ghost">ض</span><span class="tr-ghost">ض</span></div>
+      <div class="trace-row"><span class="tr-model">ض</span><span class="tr-ghost">ض</span><span class="tr-ghost">ض</span><span class="tr-ghost">ض</span><span class="tr-ghost">ض</span><span class="tr-ghost">ض</span><span class="tr-ghost">ض</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">❌</div>
+        <div>
+          <div class="word-fa">ضربدر</div>
+          <div class="word-translit">zarbdar &middot; x-mark</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">20 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">ط</div>
+        <div class="letter-meta">
+          <div class="letter-name">Toy</div>
+          <div class="letter-latin">sounds like "t"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">ط</span><span class="tr-ghost">ط</span><span class="tr-ghost">ط</span><span class="tr-ghost">ط</span><span class="tr-ghost">ط</span><span class="tr-ghost">ط</span><span class="tr-ghost">ط</span></div>
+      <div class="trace-row"><span class="tr-model">ط</span><span class="tr-ghost">ط</span><span class="tr-ghost">ط</span><span class="tr-ghost">ط</span><span class="tr-ghost">ط</span><span class="tr-ghost">ط</span><span class="tr-ghost">ط</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">✈️</div>
+        <div>
+          <div class="word-fa">طیاره</div>
+          <div class="word-translit">tayara &middot; airplane</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">21 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">ظ</div>
+        <div class="letter-meta">
+          <div class="letter-name">Zoy</div>
+          <div class="letter-latin">sounds like "z"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">ظ</span><span class="tr-ghost">ظ</span><span class="tr-ghost">ظ</span><span class="tr-ghost">ظ</span><span class="tr-ghost">ظ</span><span class="tr-ghost">ظ</span><span class="tr-ghost">ظ</span></div>
+      <div class="trace-row"><span class="tr-model">ظ</span><span class="tr-ghost">ظ</span><span class="tr-ghost">ظ</span><span class="tr-ghost">ظ</span><span class="tr-ghost">ظ</span><span class="tr-ghost">ظ</span><span class="tr-ghost">ظ</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🍽️</div>
+        <div>
+          <div class="word-fa">ظرف</div>
+          <div class="word-translit">zarf &middot; dish</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">22 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">ع</div>
+        <div class="letter-meta">
+          <div class="letter-name">Ayn</div>
+          <div class="letter-latin">sounds like "'"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">ع</span><span class="tr-ghost">ع</span><span class="tr-ghost">ع</span><span class="tr-ghost">ع</span><span class="tr-ghost">ع</span><span class="tr-ghost">ع</span><span class="tr-ghost">ع</span></div>
+      <div class="trace-row"><span class="tr-model">ع</span><span class="tr-ghost">ع</span><span class="tr-ghost">ع</span><span class="tr-ghost">ع</span><span class="tr-ghost">ع</span><span class="tr-ghost">ع</span><span class="tr-ghost">ع</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">👓</div>
+        <div>
+          <div class="word-fa">عینک</div>
+          <div class="word-translit">eynak &middot; glasses</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">23 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">غ</div>
+        <div class="letter-meta">
+          <div class="letter-name">Ghayn</div>
+          <div class="letter-latin">sounds like "gh"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">غ</span><span class="tr-ghost">غ</span><span class="tr-ghost">غ</span><span class="tr-ghost">غ</span><span class="tr-ghost">غ</span><span class="tr-ghost">غ</span><span class="tr-ghost">غ</span></div>
+      <div class="trace-row"><span class="tr-model">غ</span><span class="tr-ghost">غ</span><span class="tr-ghost">غ</span><span class="tr-ghost">غ</span><span class="tr-ghost">غ</span><span class="tr-ghost">غ</span><span class="tr-ghost">غ</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🪿</div>
+        <div>
+          <div class="word-fa">غاز</div>
+          <div class="word-translit">ghaaz &middot; goose</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">24 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">ف</div>
+        <div class="letter-meta">
+          <div class="letter-name">Fe</div>
+          <div class="letter-latin">sounds like "f"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">ف</span><span class="tr-ghost">ف</span><span class="tr-ghost">ف</span><span class="tr-ghost">ف</span><span class="tr-ghost">ف</span><span class="tr-ghost">ف</span><span class="tr-ghost">ف</span></div>
+      <div class="trace-row"><span class="tr-model">ف</span><span class="tr-ghost">ف</span><span class="tr-ghost">ف</span><span class="tr-ghost">ف</span><span class="tr-ghost">ف</span><span class="tr-ghost">ف</span><span class="tr-ghost">ف</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🐘</div>
+        <div>
+          <div class="word-fa">فیل</div>
+          <div class="word-translit">fil &middot; elephant</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">25 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">ق</div>
+        <div class="letter-meta">
+          <div class="letter-name">Qâf</div>
+          <div class="letter-latin">sounds like "q"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">ق</span><span class="tr-ghost">ق</span><span class="tr-ghost">ق</span><span class="tr-ghost">ق</span><span class="tr-ghost">ق</span><span class="tr-ghost">ق</span><span class="tr-ghost">ق</span></div>
+      <div class="trace-row"><span class="tr-model">ق</span><span class="tr-ghost">ق</span><span class="tr-ghost">ق</span><span class="tr-ghost">ق</span><span class="tr-ghost">ق</span><span class="tr-ghost">ق</span><span class="tr-ghost">ق</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🚤</div>
+        <div>
+          <div class="word-fa">قایق</div>
+          <div class="word-translit">qayeq &middot; boat</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">26 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">ک</div>
+        <div class="letter-meta">
+          <div class="letter-name">Kâf</div>
+          <div class="letter-latin">sounds like "k"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">ک</span><span class="tr-ghost">ک</span><span class="tr-ghost">ک</span><span class="tr-ghost">ک</span><span class="tr-ghost">ک</span><span class="tr-ghost">ک</span><span class="tr-ghost">ک</span></div>
+      <div class="trace-row"><span class="tr-model">ک</span><span class="tr-ghost">ک</span><span class="tr-ghost">ک</span><span class="tr-ghost">ک</span><span class="tr-ghost">ک</span><span class="tr-ghost">ک</span><span class="tr-ghost">ک</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">📚</div>
+        <div>
+          <div class="word-fa">کتاب</div>
+          <div class="word-translit">ketaab &middot; book</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">27 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">گ</div>
+        <div class="letter-meta">
+          <div class="letter-name">Gâf</div>
+          <div class="letter-latin">sounds like "g"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">گ</span><span class="tr-ghost">گ</span><span class="tr-ghost">گ</span><span class="tr-ghost">گ</span><span class="tr-ghost">گ</span><span class="tr-ghost">گ</span><span class="tr-ghost">گ</span></div>
+      <div class="trace-row"><span class="tr-model">گ</span><span class="tr-ghost">گ</span><span class="tr-ghost">گ</span><span class="tr-ghost">گ</span><span class="tr-ghost">گ</span><span class="tr-ghost">گ</span><span class="tr-ghost">گ</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🐱</div>
+        <div>
+          <div class="word-fa">گربه</div>
+          <div class="word-translit">gorbeh &middot; cat</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">28 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">ل</div>
+        <div class="letter-meta">
+          <div class="letter-name">Lâm</div>
+          <div class="letter-latin">sounds like "l"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">ل</span><span class="tr-ghost">ل</span><span class="tr-ghost">ل</span><span class="tr-ghost">ل</span><span class="tr-ghost">ل</span><span class="tr-ghost">ل</span><span class="tr-ghost">ل</span></div>
+      <div class="trace-row"><span class="tr-model">ل</span><span class="tr-ghost">ل</span><span class="tr-ghost">ل</span><span class="tr-ghost">ل</span><span class="tr-ghost">ل</span><span class="tr-ghost">ل</span><span class="tr-ghost">ل</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🐢</div>
+        <div>
+          <div class="word-fa">لاک‌پشت</div>
+          <div class="word-translit">laak-posht &middot; turtle</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">29 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">م</div>
+        <div class="letter-meta">
+          <div class="letter-name">Mim</div>
+          <div class="letter-latin">sounds like "m"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">م</span><span class="tr-ghost">م</span><span class="tr-ghost">م</span><span class="tr-ghost">م</span><span class="tr-ghost">م</span><span class="tr-ghost">م</span><span class="tr-ghost">م</span></div>
+      <div class="trace-row"><span class="tr-model">م</span><span class="tr-ghost">م</span><span class="tr-ghost">م</span><span class="tr-ghost">م</span><span class="tr-ghost">م</span><span class="tr-ghost">م</span><span class="tr-ghost">م</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🐟</div>
+        <div>
+          <div class="word-fa">ماهی</div>
+          <div class="word-translit">maahi &middot; fish</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">30 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">ن</div>
+        <div class="letter-meta">
+          <div class="letter-name">Nun</div>
+          <div class="letter-latin">sounds like "n"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">ن</span><span class="tr-ghost">ن</span><span class="tr-ghost">ن</span><span class="tr-ghost">ن</span><span class="tr-ghost">ن</span><span class="tr-ghost">ن</span><span class="tr-ghost">ن</span></div>
+      <div class="trace-row"><span class="tr-model">ن</span><span class="tr-ghost">ن</span><span class="tr-ghost">ن</span><span class="tr-ghost">ن</span><span class="tr-ghost">ن</span><span class="tr-ghost">ن</span><span class="tr-ghost">ن</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🍞</div>
+        <div>
+          <div class="word-fa">نان</div>
+          <div class="word-translit">naan &middot; bread</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">31 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">و</div>
+        <div class="letter-meta">
+          <div class="letter-name">Wâw</div>
+          <div class="letter-latin">sounds like "w"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">و</span><span class="tr-ghost">و</span><span class="tr-ghost">و</span><span class="tr-ghost">و</span><span class="tr-ghost">و</span><span class="tr-ghost">و</span><span class="tr-ghost">و</span></div>
+      <div class="trace-row"><span class="tr-model">و</span><span class="tr-ghost">و</span><span class="tr-ghost">و</span><span class="tr-ghost">و</span><span class="tr-ghost">و</span><span class="tr-ghost">و</span><span class="tr-ghost">و</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🐋</div>
+        <div>
+          <div class="word-fa">وال</div>
+          <div class="word-translit">waal &middot; whale</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">32 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">ه</div>
+        <div class="letter-meta">
+          <div class="letter-name">He</div>
+          <div class="letter-latin">sounds like "h"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">ه</span><span class="tr-ghost">ه</span><span class="tr-ghost">ه</span><span class="tr-ghost">ه</span><span class="tr-ghost">ه</span><span class="tr-ghost">ه</span><span class="tr-ghost">ه</span></div>
+      <div class="trace-row"><span class="tr-model">ه</span><span class="tr-ghost">ه</span><span class="tr-ghost">ه</span><span class="tr-ghost">ه</span><span class="tr-ghost">ه</span><span class="tr-ghost">ه</span><span class="tr-ghost">ه</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🍉</div>
+        <div>
+          <div class="word-fa">هندوانه</div>
+          <div class="word-translit">hindawana &middot; watermelon</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="sheet">
+      <div class="sheet-head">
+        <div class="brand">The Alpha Collection · Let's Learn Dari</div>
+        <div class="counter">33 / 33</div>
+      </div>
+      <div class="letter-banner">
+        <div class="big-letter">ی</div>
+        <div class="letter-meta">
+          <div class="letter-name">Yâ</div>
+          <div class="letter-latin">sounds like "y"</div>
+        </div>
+      </div>
+      <p class="section-label">TRACE IT</p>
+      <div class="trace-row"><span class="tr-model">ی</span><span class="tr-ghost">ی</span><span class="tr-ghost">ی</span><span class="tr-ghost">ی</span><span class="tr-ghost">ی</span><span class="tr-ghost">ی</span><span class="tr-ghost">ی</span></div>
+      <div class="trace-row"><span class="tr-model">ی</span><span class="tr-ghost">ی</span><span class="tr-ghost">ی</span><span class="tr-ghost">ی</span><span class="tr-ghost">ی</span><span class="tr-ghost">ی</span><span class="tr-ghost">ی</span></div>
+      <p class="section-label">WRITE IT YOURSELF</p>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="write-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="word-card">
+        <div class="word-emoji">🧊</div>
+        <div>
+          <div class="word-fa">یخ</div>
+          <div class="word-translit">yakh &middot; ice</div>
+        </div>
+      </div>
+      <div class="page-footer">The Alpha Collection — Dari Letter Tracing · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+
+    <section class="poster">
+      
+      <div class="poster-head">
+        <h1>🎁 Bonus: Alphabet Poster</h1>
+        <h2>Pull this page out and hang it up!</h2>
+      </div>
+    
+      <div class="poster-grid">
+        <div class="poster-cell">
+          <div class="letter">آ</div>
+          <div class="emoji">💧</div>
+          <div class="word">آب</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">ا</div>
+          <div class="emoji">🐴</div>
+          <div class="word">اسب</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">ب</div>
+          <div class="emoji">🍦</div>
+          <div class="word">بستنی</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">پ</div>
+          <div class="emoji">🦋</div>
+          <div class="word">پروانه</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">ت</div>
+          <div class="emoji">⚽</div>
+          <div class="word">توپ</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">ث</div>
+          <div class="emoji">💰</div>
+          <div class="word">ثروت</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">ج</div>
+          <div class="emoji">🐥</div>
+          <div class="word">جوجه</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">چ</div>
+          <div class="emoji">☂️</div>
+          <div class="word">چتر</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">ح</div>
+          <div class="emoji">🐌</div>
+          <div class="word">حلزون</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">خ</div>
+          <div class="emoji">🐻</div>
+          <div class="word">خرس</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">د</div>
+          <div class="emoji">🌳</div>
+          <div class="word">درخت</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">ذ</div>
+          <div class="emoji">🌽</div>
+          <div class="word">ذرت</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">ر</div>
+          <div class="emoji">🦊</div>
+          <div class="word">روباه</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">ز</div>
+          <div class="emoji">🦒</div>
+          <div class="word">زرافه</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">ژ</div>
+          <div class="emoji">🍮</div>
+          <div class="word">ژله</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">س</div>
+          <div class="emoji">🍎</div>
+          <div class="word">سیب</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">ش</div>
+          <div class="emoji">🦁</div>
+          <div class="word">شیر</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">ص</div>
+          <div class="emoji">🪑</div>
+          <div class="word">صندلی</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">ض</div>
+          <div class="emoji">❌</div>
+          <div class="word">ضربدر</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">ط</div>
+          <div class="emoji">✈️</div>
+          <div class="word">طیاره</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">ظ</div>
+          <div class="emoji">🍽️</div>
+          <div class="word">ظرف</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">ع</div>
+          <div class="emoji">👓</div>
+          <div class="word">عینک</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">غ</div>
+          <div class="emoji">🪿</div>
+          <div class="word">غاز</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">ف</div>
+          <div class="emoji">🐘</div>
+          <div class="word">فیل</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">ق</div>
+          <div class="emoji">🚤</div>
+          <div class="word">قایق</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">ک</div>
+          <div class="emoji">📚</div>
+          <div class="word">کتاب</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">گ</div>
+          <div class="emoji">🐱</div>
+          <div class="word">گربه</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">ل</div>
+          <div class="emoji">🐢</div>
+          <div class="word">لاک‌پشت</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">م</div>
+          <div class="emoji">🐟</div>
+          <div class="word">ماهی</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">ن</div>
+          <div class="emoji">🍞</div>
+          <div class="word">نان</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">و</div>
+          <div class="emoji">🐋</div>
+          <div class="word">وال</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">ه</div>
+          <div class="emoji">🍉</div>
+          <div class="word">هندوانه</div>
+        </div>
+        
+        <div class="poster-cell">
+          <div class="letter">ی</div>
+          <div class="emoji">🧊</div>
+          <div class="word">یخ</div>
+        </div>
+        </div>
+      <div class="page-footer">The Alpha Collection — Dari Alphabet Poster · For personal &amp; classroom use · Not for resale or redistribution</div>
+    </section>
+    
+</body>
+</html>

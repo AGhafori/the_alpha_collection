@@ -6,9 +6,11 @@
 
 ## Overview
 
-The Alpha Collection is a browser-based web application that hosts a growing set of small learning games. The home screen presents a **lime-washed green game board** with large, inviting cards — one per game. Each card shows the game's name, a preview image or icon, and a short description. Clicking a card launches that game.
+The Alpha Collection is a browser-based web application that hosts a growing set of small learning games. The home screen presents a **lime-washed green game board** with large, inviting cards — one per game, grouped into categories (Language, Geography) shown as carousels with previous/next controls. Clicking a card launches that game.
 
-Games are added one at a time. Currently the collection contains one playable game and three placeholder slots for games that are coming soon.
+Current games:
+- **Alphabet Quest** — letter learning with translations and text-to-speech.
+- **Know Your Geography?** — an interactive world map quiz with a *countries* mode (outlines rendered as SVG from Natural Earth data, Equal Earth projection, continent-based play with same-continent replay) and a *cities* mode (type the city name, or locate the city on the map). Includes mobile map zoom controls.
 
 ---
 
@@ -19,14 +21,24 @@ the_alpha_collection/
 ├── index.html               ← Main game board (home screen)
 ├── css/
 │   └── style.css            ← Shared board styles
-├── sw.js                  ← Service worker (PWA offline support)
-├── manifest.json           ← PWA manifest
+├── icons/                   ← Carousel icons (Lucide, see LICENSE-lucide)
+├── sw.js                    ← Service worker (PWA offline support)
+├── manifest.json            ← PWA manifest
+├── Dockerfile, docker-compose.yml, Makefile, nginx/, k8s/  ← Deployment
+├── scripts/
+│   └── generate_country_locator_map.py  ← Builds map-data.js
+├── printables/              ← Separate printable product line (see printables/README.md)
 └── games/
-    └── alphabet/
-        ├── index.html       ← Alphabet Quest game page
-        ├── style.css        ← Alphabet Quest styles
-        ├── game.js          ← Alphabet Quest game logic
-        └── i18n.js          ← Translations & text-to-speech
+    ├── alphabet/
+    │   ├── index.html       ← Alphabet Quest game page
+    │   ├── style.css        ← Alphabet Quest styles
+    │   ├── game.js          ← Alphabet Quest game logic
+    │   └── i18n.js          ← Translations & text-to-speech
+    └── country-locator/
+        ├── index.html       ← Know Your Geography? page
+        ├── style.css        ← Styles
+        ├── game.js          ← Game logic (countries & cities modes)
+        └── map-data.js      ← Generated SVG country paths
 ```
 
 ---
@@ -193,6 +205,14 @@ After the workflow finishes, pull the image with:
 docker pull ghcr.io/aghafori/the_alpha_collection:latest
 ```
 
+### Automatic Pull Requests
+
+The workflow at `.github/workflows/auto-pr.yml` opens a pull request when you push a feature branch with changes against the default branch (`main`). Further pushes update the existing PR rather than creating duplicates. Pushes to `main`, tag pushes, and branches without changes do not create PRs. Review and merging remain manual.
+
+Once this workflow is merged into `main`, create future feature branches from an up-to-date `main` so they include it. Existing branches need to merge or rebase onto that version of `main` before their pushes can run the workflow.
+
+GitHub requires `Settings` -> `Actions` -> `General` -> `Workflow permissions` -> `Allow GitHub Actions to create and approve pull requests` to be enabled. The workflow requests only read access to contents and write access to pull requests; it does not approve or merge them.
+
 ---
 
 ## Games
@@ -241,9 +261,13 @@ docker pull ghcr.io/aghafori/the_alpha_collection:latest
 
 ---
 
-### 2 — Game 2 *(coming soon)*
+### 2 — Know Your Geography? *(playable)*
 
-Placeholder — name and game image will be added when the game is designed.
+An interactive world map quiz with two modes:
+- **Countries:** Choose a continent, identify countries from their outlines, and replay the same continent or start a new round.
+- **Cities:** Type city names or locate cities on the map within a highlighted country.
+
+Country outlines use SVG geometry generated from Natural Earth data with an Equal Earth projection. Mobile zoom controls make smaller map regions easier to explore.
 
 ---
 
@@ -262,6 +286,16 @@ Placeholder — name and game image will be added when the game is designed.
 ## Browser Support
 
 Works in all modern evergreen browsers (Chrome, Firefox, Edge, Safari). No Internet Explorer support.
+
+---
+
+## Dari Printables
+
+The separate printable collection includes letter-tracing sheets, flashcards, an alphabet poster, and a workbook booklet. Each product has an HTML preview and PDFs in US Letter and A4 sizes.
+
+Content is maintained in [letters.json](printables/dari/data/letters.json). Letter names use the supplied [Omniglot Dari chart](https://www.omniglot.com/writing/dari.htm) as a reference, with "Hee" for ح and "He" for ه as learning labels. Both retain the consonant sound `h`.
+
+See [the printables README](printables/README.md) for generation commands and the remaining native-speaker proofreading caveats. The browser games require no dependencies; PDF generation requires Python and WeasyPrint.
 
 ---
 
