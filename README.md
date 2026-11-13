@@ -6,7 +6,7 @@
 
 ## Overview
 
-The Alpha Collection is a browser-based web application that hosts a growing set of small learning games. The home screen presents a **lime-washed green game board** with large, inviting cards — one per game, grouped into categories (Language, Geography) shown as carousels with previous/next controls. Clicking a card launches that game.
+The Alpha Collection is a browser-based learning collection. The home screen offers three categories: **Language**, **Geography**, and **Practice Library**. Each opens a dedicated page with the available games and learning resources. Language includes Alphabet Quest, Dari printables, and a practice workbook; Geography contains the world map game. The Practice Library collects all four Dari products with HTML previews and A4/US Letter PDF downloads.
 
 Current games:
 - **Alphabet Quest** — letter learning with translations and text-to-speech.
@@ -18,10 +18,14 @@ Current games:
 
 ```
 the_alpha_collection/
-├── index.html               ← Main game board (home screen)
+├── index.html               ← Category navigation (home screen)
+├── categories/
+│   ├── language/index.html  ← Language games, printables, and practice documents
+│   ├── geography/index.html ← Geography games
+│   └── practice/index.html  ← Printable and workbook library
 ├── css/
 │   └── style.css            ← Shared board styles
-├── icons/                   ← Carousel icons (Lucide, see LICENSE-lucide)
+├── icons/                   ← Navigation icons (Lucide, see LICENSE-lucide)
 ├── sw.js                    ← Service worker (PWA offline support)
 ├── manifest.json            ← PWA manifest
 ├── Dockerfile, docker-compose.yml, Makefile, nginx/, k8s/  ← Deployment
@@ -303,7 +307,7 @@ See [the printables README](printables/README.md) for generation commands and th
 
 1. Fork the repository and create a feature branch.
 2. Add your game inside `games/<game-name>/`.
-3. Add a new `<a class="game-card">` entry in `index.html`.
+3. Add the game to its category page in `categories/`. Add printable and document resources to the relevant category and the Practice Library.
 4. Open a pull request with a short description of the game.
 
 ---

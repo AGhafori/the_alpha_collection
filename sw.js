@@ -1,8 +1,12 @@
-const CACHE_NAME = 'alpha-collection-v7';
+const CACHE_NAME = 'alpha-collection-v9';
 const ASSETS = [
   './',
   './index.html',
   './css/style.css',
+  './categories/language/index.html',
+  './categories/geography/index.html',
+  './categories/practice/index.html',
+  './printables/assets/fonts/NotoNaskhArabic-Regular.ttf',
   './games/alphabet/index.html',
   './games/alphabet/style.css',
   './games/alphabet/game.js',
