@@ -1,0 +1,66 @@
+/* =============================================
+   The Alpha Collection — Printables
+   Shared fonts, palette, and print helpers
+   ============================================= */
+
+@font-face {
+  font-family: 'Alpha Body';
+  src: url('fonts/NotoSansArabic-Regular.ttf');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Alpha Body';
+  src: url('fonts/NotoSansArabic-Bold.ttf');
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'Alpha Letter';
+  src: url('fonts/NotoNaskhArabic-Regular.ttf');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Alpha Letter';
+  src: url('fonts/NotoNaskhArabic-Bold.ttf');
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'Alpha Display';
+  src: url('fonts/NotoKufiArabic-Bold.ttf');
+  font-weight: 700;
+}
+
+:root {
+  --ac-green: #a8c89a;
+  --ac-green-dark: #7fa671;
+  --ac-cream: #f5f0e8;
+  --ac-dark: #2c3e2d;
+  --ac-mid: #4a5e4b;
+  --ac-accent: #5a8a5c;
+  --ac-accent-dark: #3e6b40;
+  --ac-line: #c9c2b3;
+  --ac-trace: #cfd9c9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Alpha Body', sans-serif;
+  color: var(--ac-dark);
+  direction: rtl;
+}
+
+.page-footer {
+  position: absolute;
+  bottom: 0.3in;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'Alpha Body', sans-serif;
+  font-size: 7.5pt;
+  color: var(--ac-mid);
+  direction: ltr;
+  opacity: 0.7;
+}
